@@ -5,6 +5,7 @@
         Title="ZdaszTo!"
         Width="360" Height="800">
         
-       <views:LoginView></views:LoginView>
+        <views:AddAccountView></views:AddAccountView>
+       <!--<views:LoginView></views:LoginView> -->
 
 </Window>

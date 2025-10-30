@@ -88,6 +88,7 @@
                         
                     </Border>
                     <TextBox Width="200" 
+                             PasswordChar="*" 
                              Watermark="Wpisz hasło"/>
                 </StackPanel>
             </Border>

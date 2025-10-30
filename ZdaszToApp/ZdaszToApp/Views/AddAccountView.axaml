@@ -104,8 +104,9 @@
                                Margin="10,0,10,0"/>
                         
                     </Border>
-                    <TextBox Width="200" 
-                             Watermark="Wpisz hasło"/>
+                    <TextBox Watermark="Wpisz hasło" 
+                             PasswordChar="*" 
+                             Width="200" />
                 </StackPanel>
             </Border>
         </StackPanel>
