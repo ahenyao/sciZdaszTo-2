@@ -2,7 +2,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:ZdaszToApp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="800"
+             Background="#363636"
              x:Class="ZdaszToApp.Views.Taskbar">
-    Welcome to Avalonia!
+
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://ZdaszToApp/Assets/Fonts/Fonts.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Design.DataContext>
+        <vm:TaskbarViewModel />
+    </Design.DataContext>
+    
+    <Grid VerticalAlignment="Top" Background="#D3D3D3" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        
+            <Button Grid.Column="0">
+                <Image
+                    Source="../Assets/settings.ico" 
+                    Width="40" 
+                    Height="40"
+                    Margin="15,0,15,0"/>
+            </Button>
+               
+            
+                <Button Grid.Column="1" Margin="0">
+                    <Image
+                        Source="../Assets/home.ico" 
+                        Width="40" 
+                        Height="40"
+                        Margin="15,0,15,0"/>
+                </Button>
+            
+            <Border Grid.Column="2"
+                    Background="#878787"
+                    Margin="10"
+                    Padding="5,0,5,0"
+                    CornerRadius="5">
+            <TextBlock
+                VerticalAlignment="Center"
+                FontFamily="{StaticResource JerseyFont}"
+                FontSize="20"
+                Text="/home"/>
+            </Border>
+            
+            <Button Grid.Column="4" Margin="0" HorizontalAlignment="Right">
+                <Image
+                    Source="../Assets/user.ico" 
+                    Width="40" 
+                    Height="40"
+                    Margin="15,0,15,0"/>
+            </Button>
+    </Grid>
+        
 </UserControl>

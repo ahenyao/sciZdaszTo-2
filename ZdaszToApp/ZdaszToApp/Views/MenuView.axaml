@@ -27,7 +27,6 @@
         
         <Border Grid.Row="0"
                 Background="#805E5E5E"
-                
                 Margin="50,100,50,70"
                 CornerRadius="10">
             
