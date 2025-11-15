@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:ZdaszToApp.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="800"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="100"
              Background="#363636"
              x:Class="ZdaszToApp.Views.Taskbar">
 
@@ -30,16 +30,20 @@
         </Grid.ColumnDefinitions>
         
         
-            <Button Grid.Column="0">
+            <Button Grid.Column="0" Background="Transparent" 
+                    BorderBrush="Black" 
+                    BorderThickness="0,0,2,0" >
                 <Image
                     Source="../Assets/settings.ico" 
                     Width="40" 
                     Height="40"
                     Margin="15,0,15,0"/>
             </Button>
-               
-            
-                <Button Grid.Column="1" Margin="0">
+        
+                <Button Grid.Column="1" 
+                        Background="Transparent"
+                        BorderBrush="Black" 
+                        BorderThickness="0,0,2,0">
                     <Image
                         Source="../Assets/home.ico" 
                         Width="40" 
@@ -59,7 +63,10 @@
                 Text="/home"/>
             </Border>
             
-            <Button Grid.Column="4" Margin="0" HorizontalAlignment="Right">
+            <Button Grid.Column="4"
+                    Background="Transparent"
+                    BorderBrush="Black" 
+                    BorderThickness="2,0,0,0">
                 <Image
                     Source="../Assets/user.ico" 
                     Width="40" 
