@@ -36,6 +36,10 @@
   <li>🖥️ Windows, Linux</li>
 </ul>
 <br>
+<h2>📄 Licencja</h2>
+<p>Ten projekt jest objęty licencją <strong>GNU General Public License v3.0 (GPL-3.0)</strong>. Aby zobaczyć szczegóły sprawdź plik <a href="LICENSE">LICENSE</a></p>
+
+<br>
 
 ![English](https://img.shields.io/badge/Language-English%20🇬🇧-blue)
 
@@ -79,3 +83,6 @@
   <li>📱 Android, iOS</li>
   <li>🖥️ Windows, Linux</li>
 </ul>
+
+<h2>📄 License</h2>
+<p>This project is licensed under the <strong>GNU General Public License v3.0 (GPL-3.0)</strong>. For more details, see the <a href="LICENSE">LICENSE</a> file.</p>
