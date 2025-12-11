@@ -5,8 +5,10 @@
         Title="ZdaszTo!"
         Width="360" Height="800">
         
-        <DockPanel>
+        <!--<DockPanel>
         <views:Taskbar DockPanel.Dock="Top"/>
         <views:MenuView/>
         </DockPanel>
+        -->
+        <views:LoginView></views:LoginView>
 </Window>
