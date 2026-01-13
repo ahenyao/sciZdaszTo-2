@@ -20,8 +20,8 @@ public partial class MainWindowViewModel : ObservableObject
         LoginViewModel = new LoginViewModel();
         AddAccountViewModel = new AddAccountViewModel();
         
-        LoginViewModel.AddAccountClicked += OnAddAccountClicked;
-        LoginViewModel.LoginSucceed += OnLoginSucceed;
+        //LoginViewModel.AddAccountClicked += OnAddAccountClicked;
+        //LoginViewModel.LoginSucceed += OnLoginSucceed;
         LoginViewModel.PropertyChanged += LoginViewModel_PropertyChanged;
     }
     
