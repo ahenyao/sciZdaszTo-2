@@ -1,19 +1,23 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
 using ZdaszToApp.ViewModels;
 
 namespace ZdaszToApp.Views;
 
-public partial class MenuView : UserControl
+public partial class TestView : UserControl
 {
-    public MenuView()
+    public TestView()
     {
         InitializeComponent();
     }
 
-    private void OnInf02Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    public TestView(int collectionId)
+    {
+        InitializeComponent();
+        DataContext = new Test(collectionId);
+    }
+
+    private void OnBackClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         var window = this.GetVisualRoot() as Window;
         if (window != null)
@@ -22,9 +26,8 @@ public partial class MenuView : UserControl
             var mainDock = window.FindControl<DockPanel>("Main");
             if (testView != null && mainDock != null)
             {
-                testView.DataContext = new Test(1);
-                testView.IsVisible = true;
-                mainDock.IsVisible = false;
+                testView.IsVisible = false;
+                mainDock.IsVisible = true;
             }
         }
     }

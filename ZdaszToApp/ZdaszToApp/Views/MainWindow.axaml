@@ -3,11 +3,12 @@
         xmlns:views="clr-namespace:ZdaszToApp.Views;assembly=ZdaszToApp"
         x:Class="ZdaszToApp.MainWindow"
         Title="ZdaszTo!"
-        Width="360" Height="800">
+        Width="420" Height="860">
         
         <Grid>
                 <views:LoginView x:Name="Login"/>
                 <views:AddAccountView x:Name="AddAccount" IsVisible="False"/>
+                <views:TestView x:Name="Test" IsVisible="False"/>
                 <DockPanel x:Name="Main" IsVisible="False">
                         <views:Taskbar DockPanel.Dock="Top"/>
                         <views:MenuView/>

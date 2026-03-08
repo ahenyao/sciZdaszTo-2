@@ -35,7 +35,7 @@
                 <StackPanel Orientation="Horizontal"
                             Spacing="10">
                     
-                    <Button Margin="0,20,0,0" CornerRadius="10">
+                    <Button Margin="0,20,0,0" CornerRadius="10" Click="OnInf02Click">
                         <StackPanel>
                             <Image Source="../Assets/inf02.png" Width="100" Height="100" Stretch="Uniform"/>
                             <TextBlock Text="INF.02"

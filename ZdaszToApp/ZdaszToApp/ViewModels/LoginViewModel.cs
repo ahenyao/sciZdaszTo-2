@@ -1,35 +1,29 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.Generic;
-using System.Linq;
-using Tmds.DBus.Protocol;
 using System;
+using System.Threading.Tasks;
+using ZdaszToApp.Services;
 
 namespace ZdaszToApp.ViewModels;
 
 public partial class LoginViewModel : ViewModelBase
 {
+    private readonly ApiService _apiService = ApiService.Instance;
+
     [ObservableProperty] private string? username;
 
     [ObservableProperty] private string? password;
 
     [ObservableProperty] private string? message;
 
-    [ObservableProperty] private string? error_login = "Wpisz login";       // OPCJONALNE
+    [ObservableProperty] private string? error_login;
     
-    [ObservableProperty] private string? error_password = "Wpisz hasło";    // OPCJONALNE
+    [ObservableProperty] private string? error_password;
     
     [ObservableProperty] private bool isLoggedIn;
 
-    //DO ZMIANY - DANE DO LOGOWANIA POWINNY BYĆ POBIERANE Z API 
-    private static List<(string Username, string Password)> Users = new()
-    {
-        ("test", "1234"),
-        ("admin", "admin")
-    };
-
     [RelayCommand]
-    private void Login()
+    private async Task Login()
     {
         Message = null;
         Error_login = null;
@@ -47,20 +41,26 @@ public partial class LoginViewModel : ViewModelBase
             return;
         }
 
-        var user = Users.FirstOrDefault(u => u.Username == Username);
+        var result = await _apiService.LoginAsync(Username, Password);
 
-        if (user == default)
+        if (result == null || result.StartsWith("Error:"))
         {
-            Error_login = "Wpisany login jest błędny";
-            Message = "Błędny login";
+            Message = result ?? "Błąd połączenia";
             return;
         }
 
-        if (user.Password != Password)
+        if (result == "Invalid password")
         {
-            Error_password = "Wpisane hasło jest błędne";
+            Error_password = "Błędne hasło";
             Message = "Błędne dane logowania";
             Password = string.Empty;
+            return;
+        }
+
+        if (result == "No user found")
+        {
+            Error_login = "Użytkownik nie istnieje";
+            Message = "Błędne dane logowania";
             return;
         }
 
