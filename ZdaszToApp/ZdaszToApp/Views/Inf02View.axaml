@@ -2,17 +2,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:ZdaszToApp.ViewModels"
+             xmlns:conv="using:ZdaszToApp.Converters"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="800"
-             x:DataType="vm:Test"
              Background="#363636"
-             x:Class="ZdaszToApp.Views.TestView">
+             x:Class="ZdaszToApp.Views.Inf02View">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://ZdaszToApp/Assets/Fonts/Fonts.axaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <conv:AnswerColorConverter x:Key="AnswerColorConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -68,23 +68,73 @@
                     </StackPanel>
 
                     <StackPanel IsVisible="{Binding ShowABCD}">
-                        <Button Background="#363636" CornerRadius="10" Margin="0,5" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{Binding SelectABCDCommand}" CommandParameter="A">
+                        <Button CornerRadius="10" Margin="0,5" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{Binding SelectABCDCommand}" CommandParameter="A">
+                            <Button.Background>
+                                <MultiBinding Converter="{StaticResource AnswerColorConverter}">
+                                    <Binding Path="Options[0].IsSelected"/>
+                                    <Binding Path="Options[0].IsCorrectAnswer"/>
+                                    <Binding Path="AnswerSubmitted"/>
+                                </MultiBinding>
+                            </Button.Background>
                             <TextBlock Text="{Binding Options[0].Text}" Foreground="#D3D3D3" FontSize="16" FontFamily="{StaticResource JerseyFont}" TextWrapping="Wrap" MaxWidth="280"/>
                         </Button>
-                        <Button Background="#363636" CornerRadius="10" Margin="0,5" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{Binding SelectABCDCommand}" CommandParameter="B">
+                        <Button CornerRadius="10" Margin="0,5" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{Binding SelectABCDCommand}" CommandParameter="B">
+                            <Button.Background>
+                                <MultiBinding Converter="{StaticResource AnswerColorConverter}">
+                                    <Binding Path="Options[1].IsSelected"/>
+                                    <Binding Path="Options[1].IsCorrectAnswer"/>
+                                    <Binding Path="AnswerSubmitted"/>
+                                </MultiBinding>
+                            </Button.Background>
                             <TextBlock Text="{Binding Options[1].Text}" Foreground="#D3D3D3" FontSize="16" FontFamily="{StaticResource JerseyFont}" TextWrapping="Wrap" MaxWidth="280"/>
                         </Button>
-                        <Button Background="#363636" CornerRadius="10" Margin="0,5" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{Binding SelectABCDCommand}" CommandParameter="C">
+                        <Button CornerRadius="10" Margin="0,5" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{Binding SelectABCDCommand}" CommandParameter="C">
+                            <Button.Background>
+                                <MultiBinding Converter="{StaticResource AnswerColorConverter}">
+                                    <Binding Path="Options[2].IsSelected"/>
+                                    <Binding Path="Options[2].IsCorrectAnswer"/>
+                                    <Binding Path="AnswerSubmitted"/>
+                                </MultiBinding>
+                            </Button.Background>
                             <TextBlock Text="{Binding Options[2].Text}" Foreground="#D3D3D3" FontSize="16" FontFamily="{StaticResource JerseyFont}" TextWrapping="Wrap" MaxWidth="280"/>
                         </Button>
-                        <Button Background="#363636" CornerRadius="10" Margin="0,5" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{Binding SelectABCDCommand}" CommandParameter="D">
+                        <Button CornerRadius="10" Margin="0,5" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{Binding SelectABCDCommand}" CommandParameter="D">
+                            <Button.Background>
+                                <MultiBinding Converter="{StaticResource AnswerColorConverter}">
+                                    <Binding Path="Options[3].IsSelected"/>
+                                    <Binding Path="Options[3].IsCorrectAnswer"/>
+                                    <Binding Path="AnswerSubmitted"/>
+                                </MultiBinding>
+                            </Button.Background>
                             <TextBlock Text="{Binding Options[3].Text}" Foreground="#D3D3D3" FontSize="16" FontFamily="{StaticResource JerseyFont}" TextWrapping="Wrap" MaxWidth="280"/>
                         </Button>
                     </StackPanel>
 
                     <StackPanel IsVisible="{Binding ShowTrueFalse}" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
-                        <Button Content="PRAWDA" Width="140" Height="60" Background="#4CAF50" CornerRadius="10" FontSize="18"/>
-                        <Button Content="FAŁSZ" Width="140" Height="60" Background="#F44336" CornerRadius="10" FontSize="18"/>
+                        <Button Width="140" Height="60" CornerRadius="10" FontSize="18" Command="{Binding SelectTrueFalseCommand}" CommandParameter="True">
+                            <Button.Background>
+                                <MultiBinding Converter="{StaticResource AnswerColorConverter}">
+                                    <Binding Path="SelectedTrue"/>
+                                    <Binding Path="CorrectAnswerTrue"/>
+                                    <Binding Path="AnswerSubmitted"/>
+                                </MultiBinding>
+                            </Button.Background>
+                            <Button.Content>
+                                <TextBlock Text="PRAWDA" FontSize="18"/>
+                            </Button.Content>
+                        </Button>
+                        <Button Width="140" Height="60" CornerRadius="10" FontSize="18" Command="{Binding SelectTrueFalseCommand}" CommandParameter="False">
+                            <Button.Background>
+                                <MultiBinding Converter="{StaticResource AnswerColorConverter}" ConverterParameter="invert">
+                                    <Binding Path="SelectedFalse"/>
+                                    <Binding Path="CorrectAnswerTrue"/>
+                                    <Binding Path="AnswerSubmitted"/>
+                                </MultiBinding>
+                            </Button.Background>
+                            <Button.Content>
+                                <TextBlock Text="FAŁSZ" FontSize="18"/>
+                            </Button.Content>
+                        </Button>
                     </StackPanel>
 
                     <Button Command="{Binding SubmitAnswerCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="60" Margin="0,20,0,0" Background="#D3D3D3" CornerRadius="10" Padding="20,0">

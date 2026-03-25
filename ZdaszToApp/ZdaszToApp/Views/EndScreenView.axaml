@@ -1,0 +1,153 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="800"
+             Background="#363636"
+             x:Class="ZdaszToApp.Views.EndScreenView"
+             x:Name="EndScreen">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://ZdaszToApp/Assets/Fonts/Fonts.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Border Background="#805E5E5E"
+                Margin="30,50,30,50"
+                CornerRadius="20"
+                VerticalAlignment="Center">
+            
+            <StackPanel HorizontalAlignment="Center" Margin="20">
+                <TextBlock Text="KONIEC TESTU"
+                           FontSize="36"
+                           Foreground="#D3D3D3"
+                           FontFamily="{StaticResource JerseyFont}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,30"/>
+
+                <Border Background="#363636"
+                        CornerRadius="15"
+                        Padding="20"
+                        Margin="0,0,0,20">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding Percentage, StringFormat='{}{0:F0}%'}"
+                                   FontSize="64"
+                                   Foreground="#4CAF50"
+                                   FontFamily="{StaticResource JerseyFont}"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <TextBlock Text="{Binding ResultMessage}"
+                           FontSize="20"
+                           Foreground="#D3D3D3"
+                           FontFamily="{StaticResource JerseyFont}"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           Margin="0,0,0,30"/>
+
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0"
+                            Background="#4CAF50"
+                            CornerRadius="10"
+                            Padding="15"
+                            Margin="0,0,5,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="✓"
+                                       FontSize="32"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding CorrectAnswers}"
+                                       FontSize="28"
+                                       Foreground="White"
+                                       FontFamily="{StaticResource JerseyFont}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="Poprawne"
+                                       FontSize="14"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1"
+                            Background="#F44336"
+                            CornerRadius="10"
+                            Padding="15"
+                            Margin="5,0,0,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="✗"
+                                       FontSize="32"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding IncorrectAnswers}"
+                                       FontSize="28"
+                                       Foreground="White"
+                                       FontFamily="{StaticResource JerseyFont}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="Błędne"
+                                       FontSize="14"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <TextBlock Text="{Binding TotalQuestions, StringFormat='Łącznie: {0} pytań'}"
+                           FontSize="16"
+                           Foreground="#D3D3D3"
+                           FontFamily="{StaticResource JerseyFont}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,30"/>
+
+                <Button Command="{Binding GoToMenuCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        Background="#D3D3D3"
+                        CornerRadius="10"
+                        Padding="20,15"
+                        Margin="0,0,0,10">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="../Assets/home.ico"
+                               Width="30"
+                               Height="30"
+                               Margin="0,0,10,0"/>
+                        <TextBlock Text="Menu Główne"
+                                   Foreground="#363636"
+                                   FontFamily="{StaticResource JerseyFont}"
+                                   FontSize="24"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding RetryCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        Background="#805E5E5E"
+                        CornerRadius="10"
+                        Padding="20,15">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="🔄"
+                                   FontSize="24"
+                                   Margin="0,0,10,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="Spróbuj ponownie"
+                                   Foreground="#D3D3D3"
+                                   FontFamily="{StaticResource JerseyFont}"
+                                   FontSize="24"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

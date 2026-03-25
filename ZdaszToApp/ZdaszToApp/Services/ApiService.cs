@@ -11,7 +11,7 @@ public class ApiService
     private static ApiService? _instance;
     public static ApiService Instance => _instance ??= new ApiService();
 
-    private static readonly string BaseUrl = "http://api.zdasz-to.cyc.ki/";
+    private static readonly string BaseUrl = "https://api-zdaszto.000000404.xyz/";//"";
     private readonly HttpClient _httpClient;
     private string? _token;
 
@@ -30,46 +30,82 @@ public class ApiService
 
     public async Task<string?> LoginAsync(string username, string password)
     {
-        var url = $"{BaseUrl}login";
-        var content = new FormUrlEncodedContent(new[]
+        try
         {
-            new KeyValuePair<string,string>("username", username),
-            new KeyValuePair<string,string>("password", password)
-        });
+            var url = $"{BaseUrl}login";
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string,string>("username", username),
+                new KeyValuePair<string,string>("password", password)
+            });
 
-        var response = await _httpClient.PostAsync(url, content);
-        var body = await response.Content.ReadAsStringAsync();
+            var response = await _httpClient.PostAsync(url, content);
+            var body = await response.Content.ReadAsStringAsync();
 
-        Console.WriteLine($"Login HTTP {(int)response.StatusCode}: {body}");
+            Console.WriteLine($"Login HTTP {(int)response.StatusCode}: {body}");
 
-        if (!response.IsSuccessStatusCode)
-            return body;
+            if (!response.IsSuccessStatusCode)
+                return body;
 
-        if (body.StartsWith("TOKEN: "))
-            _token = body.Substring(7);
-        else
-            _token = body;
-        
-        Console.WriteLine($"Token set to: {_token}");
+            if (body.StartsWith("TOKEN: "))
+                _token = body.Substring(7);
+            else
+                _token = body;
+            
+            Console.WriteLine($"Token set to: {_token}");
 
-        return _token;
+            return _token;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"[ApiService] Network error: {ex.Message}");
+            return "Error:NoInternet";
+        }
+        catch (TaskCanceledException ex)
+        {
+            Console.WriteLine($"[ApiService] Timeout: {ex.Message}");
+            return "Error:NoInternet";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[ApiService] Unexpected error: {ex.Message}");
+            return "Error:NoInternet";
+        }
     }
 
     public async Task<string?> SignupAsync(string email, string username, string password)
     {
-        var url = $"{BaseUrl}signup";
-        var content = new FormUrlEncodedContent(new[]
+        try
         {
-            new KeyValuePair<string,string>("email", email),
-            new KeyValuePair<string,string>("username", username),
-            new KeyValuePair<string,string>("password", password)
-        });
+            var url = $"{BaseUrl}signup";
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string,string>("email", email),
+                new KeyValuePair<string,string>("username", username),
+                new KeyValuePair<string,string>("password", password)
+            });
+            
+            var response = await _httpClient.PostAsync(url, content);
+            var body = await response.Content.ReadAsStringAsync();
 
-        var response = await _httpClient.PostAsync(url, content);
-        var body = await response.Content.ReadAsStringAsync();
-
-        Console.WriteLine($"Signup HTTP {(int)response.StatusCode}: {body}");
-        return body;
+            Console.WriteLine($"Signup HTTP {(int)response.StatusCode}: {body}");
+            return body;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"[ApiService] Signup Network error: {ex.Message}");
+            return "Error:NoInternet";
+        }
+        catch (TaskCanceledException ex)
+        {
+            Console.WriteLine($"[ApiService] Signup Timeout: {ex.Message}");
+            return "Error:NoInternet";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[ApiService] Signup Unexpected error: {ex.Message}");
+            return "Error:NoInternet";
+        }
     }
 
     public async Task<Question?> GetQuestionAsync(int questionId)

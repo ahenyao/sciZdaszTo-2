@@ -1,9 +1,7 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:views="clr-namespace:ZdaszToApp.Views;assembly=ZdaszToApp"
-        x:Class="ZdaszToApp.MainWindow"
-        Title="ZdaszTo!"
-        Width="420" Height="860">
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="clr-namespace:ZdaszToApp.Views;assembly=ZdaszToApp"
+             x:Class="ZdaszToApp.Views.AppView">
         
         <Grid>
                 <views:LoginView x:Name="Login"/>
@@ -12,9 +10,9 @@
                 <views:Inf03View x:Name="Inf03" IsVisible="False"/>
                 <views:Inf04View x:Name="Inf04" IsVisible="False"/>
                 <views:EndScreenView x:Name="EndScreen" IsVisible="False"/>
-                <DockPanel x:Name="Main" IsVisible="False">
-                        <views:Taskbar DockPanel.Dock="Top"/>
+                <DockPanel x:Name="Main" IsVisible="False" Loaded="OnMainLoaded">
+                        <views:Taskbar x:Name="Taskbar" DockPanel.Dock="Top"/>
                         <views:MenuView/>
                 </DockPanel>
         </Grid>
-</Window>
+</UserControl>

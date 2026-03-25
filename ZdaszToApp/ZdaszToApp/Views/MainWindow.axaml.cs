@@ -1,6 +1,6 @@
 using Avalonia.Controls;
-using ZdaszToApp.Views;
 using ZdaszToApp.ViewModels;
+using System;
 namespace ZdaszToApp;
 
 public partial class MainWindow : Window
@@ -10,16 +10,43 @@ public partial class MainWindow : Window
         InitializeComponent();
         
         DataContext = new MainWindowViewModel();
-        if (Login.DataContext is LoginViewModel loginVm)
+        
+        if (DataContext is MainWindowViewModel vm)
         {
-            loginVm.PropertyChanged += (s, e) =>
+            Login.DataContext = vm.LoginViewModel;
+            AddAccount.DataContext = vm.AddAccountViewModel;
+            
+            vm.LoginViewModel.OnCreateAccountClicked += () =>
             {
-                if (e.PropertyName == nameof(LoginViewModel.IsLoggedIn) && loginVm.IsLoggedIn)
-                {
-                    Main.IsVisible = true;
-                    Login.IsVisible = false;
-                    AddAccount.IsVisible = false;
-                }
+                Login.IsVisible = false;
+                AddAccount.IsVisible = true;
+            };
+            
+            vm.LoginViewModel.OnLoginSuccess += () =>
+            {
+                Main.IsVisible = true;
+                Login.IsVisible = false;
+                AddAccount.IsVisible = false;
+            };
+            
+            vm.AddAccountViewModel.OnLoginSuccess += () =>
+            {
+                Main.IsVisible = true;
+                Login.IsVisible = false;
+                AddAccount.IsVisible = false;
+            };
+            
+            vm.AddAccountViewModel.OnGoBackToLogin += () =>
+            {
+                AddAccount.IsVisible = false;
+                Login.IsVisible = true;
+            };
+            
+            vm.OnAutoLoginSuccess += () =>
+            {
+                Main.IsVisible = true;
+                Login.IsVisible = false;
+                AddAccount.IsVisible = false;
             };
         }
     }

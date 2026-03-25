@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <MSBuildUseMSBuildSdk>true</MSBuildUseMSBuildSdk>
+  </PropertyGroup>
+</Project>

@@ -20,99 +20,93 @@
     </Design.DataContext>
     
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"  />
-        </Grid.RowDefinitions>
-        
-        
-        <Border Grid.Row="0"
-                Background="#805E5E5E"
-                Margin="50,30,50,70"
+        <Border Background="#805E5E5E"
+                Margin="10,10,10,10"
                 CornerRadius="10">
             
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
-                
-                <StackPanel Orientation="Horizontal"
-                            Spacing="10">
+            <ScrollViewer>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
                     
-                    <Button Margin="0,20,0,0" CornerRadius="10" Click="OnInf02Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Margin="0,20,0,0" CornerRadius="10" Click="OnInf02Click" Tapped="OnInf02Click" Padding="10">
+                            <StackPanel>
+                                <Image Source="../Assets/inf02.png" Width="100" Height="100" Stretch="Uniform"/>
+                                <TextBlock Text="INF.02"
+                                       TextAlignment="Center"
+                                       Foreground="#D3D3D3"
+                                       FontFamily="{StaticResource JerseyFont}"
+                                       FontSize="25"/>
+                            </StackPanel>
+                        </Button>
+                        
+                        <Button Margin="0,20,0,0" CornerRadius="10" Click="OnInf03Click" Tapped="OnInf03Click" Padding="10">
+                            <StackPanel>
+                                <Image Source="../Assets/inf03.png" Width="100" Height="100" Stretch="Uniform"/>
+                                <TextBlock Text="INF.03"
+                                       TextAlignment="Center"
+                                       Foreground="#D3D3D3"
+                                       FontFamily="{StaticResource JerseyFont}"
+                                       FontSize="25"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    
+                    <Button Margin="0,20,0,0" CornerRadius="10" HorizontalAlignment="Center" Click="OnInf04Click" Tapped="OnInf04Click" Padding="10">
                         <StackPanel>
-                            <Image Source="../Assets/inf02.png" Width="100" Height="100" Stretch="Uniform"/>
-                            <TextBlock Text="INF.02"
-                                   TextAlignment="Center"
-                                   Foreground="#D3D3D3"
-                                   FontFamily="{StaticResource JerseyFont}"
-                                   FontSize="25"/>
+                            <Image Source="../Assets/inf04.png" Width="100" Height="100" Stretch="Uniform"/>
+                            <TextBlock Text="INF.04"
+                                       TextAlignment="Center"
+                                       Foreground="#D3D3D3"
+                                       FontFamily="{StaticResource JerseyFont}"
+                                       FontSize="25"/>
                         </StackPanel>
                     </Button>
                     
-                    <Button Margin="0,20,0,0" CornerRadius="10">
+                    <Button HorizontalAlignment="Center" 
+                            Margin="0,20,0,0"
+                            Background="#D3D3D3">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Assets/shop.ico"
+                                   Width="40"
+                                   Height="40"
+                                   Margin="0,0,10,0"/> 
+                            <TextBlock Text="Zakupy"
+                                       Foreground="#363636"
+                                       FontFamily="{StaticResource JerseyFont}"
+                                       FontSize="50"/>
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button HorizontalAlignment="Center" 
+                            Margin="0,20,0,0"
+                            Background="#D3D3D3">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Assets/test.ico"
+                                   Width="30"
+                                   Height="30"
+                                   Margin="0,0,10,0"/>  
+                            <TextBlock Text="Inne testy"
+                                       Foreground="#363636"
+                                       FontFamily="{StaticResource JerseyFont}"
+                                       FontSize="30"/>
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button HorizontalAlignment="Center" 
+                            Margin="0,20,0,0"
+                            Background="#D3D3D3">
                         <StackPanel>
-                            <Image Source="../Assets/inf03.png" Width="100" Height="100" Stretch="Uniform"/>
-                            <TextBlock Text="INF.03"
-                                   TextAlignment="Center"
-                                   Foreground="#D3D3D3"
-                                   FontFamily="{StaticResource JerseyFont}"
-                                   FontSize="25"/>
+                            <Image Source="../Assets/ranking.ico"
+                                   Width="60"
+                                   Height="40"/> 
+                            <TextBlock Text="Ranking"
+                                       Foreground="#363636"
+                                       FontFamily="{StaticResource JerseyFont}"
+                                       FontSize="50"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
-                
-                <Button Margin="0,20,0,0" CornerRadius="10" HorizontalAlignment="Center">
-                    <StackPanel>
-                        <Image Source="../Assets/inf04.png" Width="100" Height="100" Stretch="Uniform"/>
-                        <TextBlock Text="INF.04"
-                                   TextAlignment="Center"
-                                   Foreground="#D3D3D3"
-                                   FontFamily="{StaticResource JerseyFont}"
-                                   FontSize="25"/>
-                    </StackPanel>
-                </Button>
-                
-                <Button HorizontalAlignment="Center" 
-                        Margin="0,20,0,0"
-                        Background="#D3D3D3">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="../Assets/shop.ico"
-                               Width="40"
-                               Height="40"
-                               Margin="0,0,10,0"/> 
-                        <TextBlock Text="Zakupy"
-                                   Foreground="#363636"
-                                   FontFamily="{StaticResource JerseyFont}"
-                                   FontSize="50"/>
-                    </StackPanel>
-                </Button>
-                
-                <Button HorizontalAlignment="Center" 
-                        Margin="0,20,0,0"
-                        Background="#D3D3D3">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="../Assets/test.ico"
-                               Width="30"
-                               Height="30"
-                               Margin="0,0,10,0"/>  
-                        <TextBlock Text="Inne testy"
-                                   Foreground="#363636"
-                                   FontFamily="{StaticResource JerseyFont}"
-                                   FontSize="30"/>
-                    </StackPanel>
-                </Button>
-                
-                <Button HorizontalAlignment="Center" 
-                        Margin="0,20,0,0"
-                        Background="#D3D3D3">
-                    <StackPanel>
-                        <Image Source="../Assets/ranking.ico"
-                               Width="60"
-                               Height="40"/> 
-                        <TextBlock Text="Ranking"
-                                   Foreground="#363636"
-                                   FontFamily="{StaticResource JerseyFont}"
-                                   FontSize="50"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
+            </ScrollViewer>
         </Border>
     </Grid>
 </UserControl>

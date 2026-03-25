@@ -1,8 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
+using ZdaszToApp.Services;
 
 namespace ZdaszToApp.ViewModels;
 
@@ -20,9 +22,45 @@ public partial class MainWindowViewModel : ObservableObject
         LoginViewModel = new LoginViewModel();
         AddAccountViewModel = new AddAccountViewModel();
         
-        //LoginViewModel.AddAccountClicked += OnAddAccountClicked;
-        //LoginViewModel.LoginSucceed += OnLoginSucceed;
         LoginViewModel.PropertyChanged += LoginViewModel_PropertyChanged;
+        
+        _ = AutoLogin();
+    }
+
+    public event Action? OnAutoLoginSuccess;
+
+    private async Task AutoLogin()
+    {
+        var authService = AuthService.Instance;
+        if (authService.HasSavedCredentials())
+        {
+            var result = await ApiService.Instance.LoginAsync(
+                authService.SavedUsername!,
+                authService.SavedPassword!);
+
+            if (result != null && !result.StartsWith("Error:") && result != "Invalid password" && result != "No user found")
+            {
+                IsLoggedIn = true;
+                IsLoginVisible = false;
+                IsMainVisible = true;
+                OnAutoLoginSuccess?.Invoke();
+                return;
+            }
+            else
+            {
+                authService.ClearCredentials();
+            }
+        }
+        IsLoginVisible = true;
+    }
+
+    [RelayCommand]
+    private void Logout()
+    {
+        AuthService.Instance.ClearCredentials();
+        IsLoggedIn = false;
+        IsLoginVisible = true;
+        IsMainVisible = false;
     }
     
     private void OnAddAccountClicked()
@@ -41,7 +79,6 @@ public partial class MainWindowViewModel : ObservableObject
     {
         if (e.PropertyName == nameof(LoginViewModel.IsLoggedIn) && LoginViewModel.IsLoggedIn)
         {
-            
             IsLoggedIn = true;
         }
     }

@@ -66,13 +66,29 @@
             <Button Grid.Column="4"
                     Background="Transparent"
                     BorderBrush="Black" 
-                    BorderThickness="2,0,0,0">
+                    BorderThickness="2,0,0,0"
+                    Click="OnUserClick"
+                    x:Name="UserButton">
                 <Image
                     Source="../Assets/user.ico" 
                     Width="40" 
                     Height="40"
                     Margin="15,0,15,0"/>
             </Button>
+            
+            <Popup x:Name="UserPopup" PlacementTarget="{Binding #UserButton}" PlacementMode="BottomEdgeAlignedRight">
+                <Border Background="#D3D3D3" CornerRadius="10" Padding="10">
+                    <StackPanel>
+                        <Button Content="Wyloguj się"
+                                Background="#FF4444"
+                                Foreground="White"
+                                FontFamily="{StaticResource JerseyFont}"
+                                FontSize="18"
+                                Click="OnLogoutClick"
+                                Padding="15,10"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
     </Grid>
         
 </UserControl>

@@ -1,9 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net9.0-ios</TargetFramework>
         <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
         <Nullable>enable</Nullable>
+        <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+        <SelfContained>true</SelfContained>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <IsAppExtension>false</IsAppExtension>
+        <EnableBitcode>false</EnableBitcode>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <ApplicationId>nya.a</ApplicationId>
+        <IpaPackageDir>bin/Debug/net9.0-ios/ipa</IpaPackageDir>
     </PropertyGroup>
 
     <ItemGroup>
