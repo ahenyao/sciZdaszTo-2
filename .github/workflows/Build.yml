@@ -1,0 +1,195 @@
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  build-win-x64-release:
+    name: Windows x64 Release
+    runs-on: windows-2025
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.304
+
+
+      - name: Restore
+        run: dotnet restore ZdaszToApp\ZdaszToApp.Desktop\ZdaszToApp.Desktop.csproj
+
+      - name: Build
+        run: dotnet publish -c Release -f net9.0 ZdaszToApp\ZdaszToApp.Desktop\ZdaszToApp.Desktop.csproj
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-x64-release
+          path: ZdaszToApp\ZdaszToApp.Desktop\bin\Release\net9.0
+
+
+
+  build-win-arm64-release:
+    name: Windows arm64 Release
+    runs-on: windows-11-arm
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.304
+
+
+      - name: Restore
+        run: dotnet restore ZdaszToApp\ZdaszToApp.Desktop\ZdaszToApp.Desktop.csproj
+
+      - name: Build
+        run: dotnet publish -c Release -f net9.0 ZdaszToApp\ZdaszToApp.Desktop\ZdaszToApp.Desktop.csproj
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-arm64-release
+          path: ZdaszToApp\ZdaszToApp.Desktop\bin\Release\net9.0
+
+
+
+  build-linux-x64-release:
+    name: Linux x64 Release
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.304
+
+
+      - name: Restore
+        run: dotnet restore ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+
+      - name: Build
+        run: dotnet publish -c Release -f net9.0 ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-x64-release
+          path: ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0
+
+
+
+  build-linux-arm64-release:
+    name: Linux arm64 Release
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.304
+
+
+      - name: Restore
+        run: dotnet restore ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+
+      - name: Build
+        run: dotnet publish -c Release -f net9.0 ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-arm64-release
+          path: ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0
+
+
+
+  build-macos-x64-release:
+    name: macOS x64 Release
+    runs-on: macos-15-intel
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.304
+
+
+      - name: Restore
+        run: dotnet restore ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+
+      - name: Build
+        run: dotnet publish -c Release -f net9.0 ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-x64-release
+          path: ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0
+
+
+
+  build-macos-arm64-release:
+    name: macOS arm64 Release
+    runs-on: macos-15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.304
+
+
+      - name: Restore
+        run: dotnet restore ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+
+      - name: Build
+        run: dotnet publish -c Release -f net9.0 ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-arm64-release
+          path: ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0
+
+
+
+  build-android-noarch-release:
+    name: Android noarch Release
+    runs-on: ubuntu-24.04
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.304
+
+      - name: Install Android workload
+        run: dotnet workload install android
+
+      - name: Restore
+        run: dotnet restore ZdaszToApp/ZdaszToApp.Android/ZdaszToApp.Android.csproj
+
+      - name: Build
+        run: dotnet publish -c Release -f net9.0-android ZdaszToApp/ZdaszToApp.Android/ZdaszToApp.Android.csproj /p:AndroidPackageFormat=apk /p:RunAOTCompilation=false /p:PublishTrimmed=false
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-noarch-release
+          path: ZdaszToApp/ZdaszToApp.Android/bin/Release/net9.0-android
