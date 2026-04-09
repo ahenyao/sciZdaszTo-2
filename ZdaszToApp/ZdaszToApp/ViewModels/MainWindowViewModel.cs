@@ -16,11 +16,13 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty] private bool isMainVisible;
     public LoginViewModel LoginViewModel { get; }
     public AddAccountViewModel AddAccountViewModel { get; }
+    public MenuViewModel MenuViewModel { get; }
 
     public MainWindowViewModel()
     {
         LoginViewModel = new LoginViewModel();
         AddAccountViewModel = new AddAccountViewModel();
+        MenuViewModel = new MenuViewModel();
         
         LoginViewModel.PropertyChanged += LoginViewModel_PropertyChanged;
         
@@ -28,12 +30,17 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     public event Action? OnAutoLoginSuccess;
+    public event Action? OnAutoLoginStart;
+    public event Action? OnLogoutRequested;
 
     private async Task AutoLogin()
     {
         var authService = AuthService.Instance;
         if (authService.HasSavedCredentials())
         {
+            LoginViewModel.IsLoading = true;
+            IsLoginVisible = true;
+            OnAutoLoginStart?.Invoke();
             var result = await ApiService.Instance.LoginAsync(
                 authService.SavedUsername!,
                 authService.SavedPassword!);
@@ -48,9 +55,11 @@ public partial class MainWindowViewModel : ObservableObject
             }
             else
             {
+                LoginViewModel.IsLoading = false;
                 authService.ClearCredentials();
             }
         }
+        LoginViewModel.IsLoading = false;
         IsLoginVisible = true;
     }
 
@@ -58,9 +67,15 @@ public partial class MainWindowViewModel : ObservableObject
     private void Logout()
     {
         AuthService.Instance.ClearCredentials();
+        ApiService.Instance.ClearToken();
+        LoginViewModel.Reset();
+        
         IsLoggedIn = false;
         IsLoginVisible = true;
         IsMainVisible = false;
+        IsAddAccountVisible = false;
+        
+        OnLogoutRequested?.Invoke();
     }
     
     private void OnAddAccountClicked()

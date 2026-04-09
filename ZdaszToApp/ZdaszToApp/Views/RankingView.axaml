@@ -1,0 +1,149 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:vm="using:ZdaszToApp.ViewModels"
+              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="720"
+              x:Class="ZdaszToApp.Views.RankingView">
+              
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://ZdaszToApp/Assets/Fonts/Fonts.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MainGrid">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                <GradientStop Color="#E8F5E9" Offset="0"/>
+                <GradientStop Color="#C8E6C9" Offset="0.5"/>
+                <GradientStop Color="#A5D6A7" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Border Background="#20FFFFFF"
+                Margin="15,15,15,15"
+                CornerRadius="20"
+                x:Name="CardBorder">
+
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Margin="15,15,15,10">
+                    <Button HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="0,0,0,15"
+                            CornerRadius="10"
+                            Padding="10"
+                            Click="OnBackClick"
+                            x:Name="BackButton">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                <GradientStop Color="#FFFFFF" Offset="0"/>
+                                <GradientStop Color="#F5F5F5" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Background="#8BC34A" CornerRadius="8" Width="40" Height="40" x:Name="BackIconBorder">
+                                <Image Source="avares://ZdaszToApp/Assets/home.ico"
+                                       Width="24"
+                                       Height="24"
+                                       Stretch="Uniform"/>
+                            </Border>
+                            <TextBlock Text="Powrot" x:Name="BackText"
+                                       Foreground="#2E7D32"
+                                       FontFamily="{StaticResource JerseyFont}"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"
+                                       Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Border Background="#8BC34A" CornerRadius="12" Padding="15" HorizontalAlignment="Center" x:Name="TitleBorder">
+                        <TextBlock Text="Ranking TOP 30" x:Name="TitleText"
+                                   TextAlignment="Center"
+                                   Foreground="White"
+                                   FontFamily="{StaticResource JerseyFont}"
+                                   FontSize="28"
+                                   FontWeight="Bold"/>
+                    </Border>
+                </StackPanel>
+
+                <ScrollViewer Margin="10,5,10,15" x:Name="ScrollViewer">
+                    <ItemsControl ItemsSource="{Binding Entries}" x:Name="RankingList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="vm:RankingEntry">
+                                <Border Margin="5,4" CornerRadius="12" Padding="12" x:Name="EntryBorder">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                            <GradientStop Color="#FFFFFF" Offset="0"/>
+                                            <GradientStop Color="#F5F5F5" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="45"/>
+                                            <ColumnDefinition Width="55"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="0" CornerRadius="8" Width="35" Height="35" 
+                                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                x:Name="RankBadge">
+                                            <Border.Background>
+                                                <SolidColorBrush Color="#E0E0E0"/>
+                                            </Border.Background>
+                                            <TextBlock Text="{Binding Rank}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       FontFamily="{StaticResource JerseyFont}"
+                                                       FontSize="16"
+                                                       FontWeight="Bold"
+                                                       x:Name="RankText"/>
+                                        </Border>
+
+                                        <Border Grid.Column="1" CornerRadius="25" Width="50" Height="50" 
+                                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Background="#8BC34A" x:Name="AvatarBorder">
+                                            <Image Source="avares://ZdaszToApp/Assets/user.ico"
+                                                   Width="28"
+                                                   Height="28"
+                                                   Stretch="Uniform"/>
+                                        </Border>
+
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding Nickname}"
+                                                   VerticalAlignment="Center"
+                                                   Margin="10,0,5,0"
+                                                   FontFamily="{StaticResource JerseyFont}"
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   x:Name="NicknameText"/>
+
+                                        <StackPanel Grid.Column="3" Orientation="Horizontal" 
+                                                    VerticalAlignment="Center" 
+                                                    HorizontalAlignment="Right">
+                                            <TextBlock Text="{Binding Points}"
+                                                       FontFamily="{StaticResource JerseyFont}"
+                                                       FontSize="18"
+                                                       FontWeight="Bold"
+                                                       x:Name="PointsText"/>
+                                            <TextBlock Text=" pkt" 
+                                                       FontSize="14"
+                                                       VerticalAlignment="Bottom"
+                                                       Margin="2,0,0,2"
+                                                       x:Name="PtsLabel"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

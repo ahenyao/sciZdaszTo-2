@@ -1,11 +1,10 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="800"
-             Background="#363636"
-             x:Class="ZdaszToApp.Views.EndScreenView"
-             x:Name="EndScreen">
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="800"
+              x:Class="ZdaszToApp.Views.EndScreenView"
+              x:Name="EndScreen">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -15,139 +14,179 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Border Background="#805E5E5E"
-                Margin="30,50,30,50"
-                CornerRadius="20"
-                VerticalAlignment="Center">
-            
-            <StackPanel HorizontalAlignment="Center" Margin="20">
-                <TextBlock Text="KONIEC TESTU"
-                           FontSize="36"
-                           Foreground="#D3D3D3"
-                           FontFamily="{StaticResource JerseyFont}"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,30"/>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MainGrid">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                <GradientStop Color="#E8F5E9" Offset="0"/>
+                <GradientStop Color="#C8E6C9" Offset="0.5"/>
+                <GradientStop Color="#A5D6A7" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
+        <Border Background="#20FFFFFF"
+                Margin="25,40,25,40"
+                CornerRadius="25"
+                Padding="5"
+                VerticalAlignment="Center"
+                x:Name="OuterBorder">
+            <Border Background="#FFFFFF" CornerRadius="20" x:Name="InnerBorder">
+                <StackPanel HorizontalAlignment="Center" Margin="25">
+                    <TextBlock Text="KONIEC TESTU"
+                               FontSize="32"
+                               Foreground="#2E7D32"
+                               FontFamily="{StaticResource JerseyFont}"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,25"/>
 
-                <Border Background="#363636"
-                        CornerRadius="15"
-                        Padding="20"
-                        Margin="0,0,0,20">
-                    <StackPanel HorizontalAlignment="Center">
-                        <TextBlock Text="{Binding Percentage, StringFormat='{}{0:F0}%'}"
-                                   FontSize="64"
-                                   Foreground="#4CAF50"
-                                   FontFamily="{StaticResource JerseyFont}"
-                                   HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Border>
-
-                <TextBlock Text="{Binding ResultMessage}"
-                           FontSize="20"
-                           Foreground="#D3D3D3"
-                           FontFamily="{StaticResource JerseyFont}"
-                           HorizontalAlignment="Center"
-                           TextWrapping="Wrap"
-                           TextAlignment="Center"
-                           Margin="0,0,0,30"/>
-
-                <Grid Margin="0,0,0,20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Border Grid.Column="0"
-                            Background="#4CAF50"
-                            CornerRadius="10"
-                            Padding="15"
-                            Margin="0,0,5,0">
+                    <Border Background="White"
+                            CornerRadius="18"
+                            Padding="25"
+                            Margin="0,0,0,20"
+                            BoxShadow="0 4 12 #1A000000">
                         <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="✓"
-                                       FontSize="32"
-                                       Foreground="White"
-                                       HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding CorrectAnswers}"
-                                       FontSize="28"
-                                       Foreground="White"
+                            <TextBlock Text="{Binding Percentage, StringFormat='{}{0:F0}%'}"
+                                       FontSize="56"
+                                       Foreground="#8BC34A"
                                        FontFamily="{StaticResource JerseyFont}"
-                                       HorizontalAlignment="Center"/>
-                            <TextBlock Text="Poprawne"
-                                       FontSize="14"
-                                       Foreground="White"
                                        HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>
 
-                    <Border Grid.Column="1"
-                            Background="#F44336"
-                            CornerRadius="10"
-                            Padding="15"
-                            Margin="5,0,0,0">
-                        <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="✗"
-                                       FontSize="32"
-                                       Foreground="White"
-                                       HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding IncorrectAnswers}"
-                                       FontSize="28"
-                                       Foreground="White"
-                                       FontFamily="{StaticResource JerseyFont}"
-                                       HorizontalAlignment="Center"/>
-                            <TextBlock Text="Błędne"
-                                       FontSize="14"
-                                       Foreground="White"
-                                       HorizontalAlignment="Center"/>
-                        </StackPanel>
+                    <Border Background="#E8F5E9" CornerRadius="12" Padding="15,10" Margin="0,0,0,25">
+                        <TextBlock Text="{Binding ResultMessage}"
+                                   FontSize="18"
+                                   Foreground="#558B2F"
+                                   FontFamily="{StaticResource JerseyFont}"
+                                   HorizontalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center"
+                                   MaxWidth="280"/>
                     </Border>
-                </Grid>
 
-                <TextBlock Text="{Binding TotalQuestions, StringFormat='Łącznie: {0} pytań'}"
-                           FontSize="16"
-                           Foreground="#D3D3D3"
-                           FontFamily="{StaticResource JerseyFont}"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,30"/>
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                <Button Command="{Binding GoToMenuCommand}"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Center"
-                        Background="#D3D3D3"
-                        CornerRadius="10"
-                        Padding="20,15"
-                        Margin="0,0,0,10">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Image Source="../Assets/home.ico"
-                               Width="30"
-                               Height="30"
-                               Margin="0,0,10,0"/>
-                        <TextBlock Text="Menu Główne"
-                                   Foreground="#363636"
-                                   FontFamily="{StaticResource JerseyFont}"
-                                   FontSize="24"
-                                   VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
+                        <Border Grid.Column="0"
+                                CornerRadius="12"
+                                Padding="15"
+                                Margin="0,0,6,0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                    <GradientStop Color="#AED581" Offset="0"/>
+                                    <GradientStop Color="#8BC34A" Offset="0.4"/>
+                                    <GradientStop Color="#7CB342" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel HorizontalAlignment="Center">
+                                <Border Background="#FFFFFF" CornerRadius="50" Width="45" Height="45" Margin="0,0,0,8">
+                                    <TextBlock Text="✓"
+                                               FontSize="24"
+                                               Foreground="#8BC34A"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="{Binding CorrectAnswers}"
+                                           FontSize="26"
+                                           Foreground="White"
+                                           FontFamily="{StaticResource JerseyFont}"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="Poprawne"
+                                           FontSize="12"
+                                           Foreground="#E8F5E9"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
 
-                <Button Command="{Binding RetryCommand}"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Center"
-                        Background="#805E5E5E"
-                        CornerRadius="10"
-                        Padding="20,15">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="🔄"
-                                   FontSize="24"
-                                   Margin="0,0,10,0"
-                                   VerticalAlignment="Center"/>
-                        <TextBlock Text="Spróbuj ponownie"
-                                   Foreground="#D3D3D3"
-                                   FontFamily="{StaticResource JerseyFont}"
-                                   FontSize="24"
-                                   VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
+                        <Border Grid.Column="1"
+                                CornerRadius="12"
+                                Padding="15"
+                                Margin="6,0,0,0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                    <GradientStop Color="#4FC3F7" Offset="0"/>
+                                    <GradientStop Color="#03A9F4" Offset="0.4"/>
+                                    <GradientStop Color="#0288D1" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel HorizontalAlignment="Center">
+                                <Border Background="#FFFFFF" CornerRadius="50" Width="45" Height="45" Margin="0,0,0,8">
+                                    <TextBlock Text="✗"
+                                               FontSize="24"
+                                               Foreground="#03A9F4"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="{Binding IncorrectAnswers}"
+                                           FontSize="26"
+                                           Foreground="White"
+                                           FontFamily="{StaticResource JerseyFont}"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="Błędne"
+                                           FontSize="12"
+                                           Foreground="#B3E5FC"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <TextBlock Text="{Binding TotalQuestions, StringFormat='Łącznie: {0} pytań'}"
+                               FontSize="16"
+                               Foreground="#558B2F"
+                               FontFamily="{StaticResource JerseyFont}"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,25"/>
+
+                    <Border Background="#8BC34A" CornerRadius="12" Margin="0,0,0,10" Padding="4">
+                        <Border Background="#7CB342" CornerRadius="10">
+                            <Button Command="{Binding GoToMenuCommand}"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Center"
+                                    Background="Transparent"
+                                    CornerRadius="8"
+                                    Padding="15,12">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Image Source="../Assets/home.ico"
+                                           Width="24"
+                                           Height="24"
+                                           Margin="0,0,10,0"/>
+                                    <TextBlock Text="Menu Główne"
+                                               Foreground="White"
+                                               FontFamily="{StaticResource JerseyFont}"
+                                               FontSize="20"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </Border>
+                    </Border>
+
+                    <Border Background="#03A9F4" CornerRadius="12" Padding="4">
+                        <Border Background="#0288D1" CornerRadius="10">
+                            <Button Command="{Binding RetryCommand}"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Center"
+                                    Background="Transparent"
+                                    CornerRadius="8"
+                                    Padding="15,12">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <!-- 🔄 -->
+                                    <TextBlock Text="⟳"
+                                               FontSize="20"
+                                               Margin="0,0,10,0"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="Spróbuj ponownie"
+                                               Foreground="White"
+                                               FontFamily="{StaticResource JerseyFont}"
+                                               FontSize="20"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </Border>
+                    </Border>
+                </StackPanel>
+            </Border>
         </Border>
     </Grid>
 </UserControl>

@@ -2,18 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ZdaszToApp.Services;
 
-public class ApiService
+public partial class ApiService
 {
     private static ApiService? _instance;
     public static ApiService Instance => _instance ??= new ApiService();
 
-    private static readonly string BaseUrl = "https://api-zdaszto.000000404.xyz/";//"";
+    private static readonly string BaseUrl = false ? "http://api.zdasz-to.cyc.ki/" : "https://api-zdaszto.000000404.xyz/";
     private readonly HttpClient _httpClient;
     private string? _token;
+
+    public event Action? OnTokenInvalid;
 
     private ApiService() 
     { 
@@ -27,6 +30,57 @@ public class ApiService
     }
 
     public string? GetToken() => _token;
+
+    public void ClearToken()
+    {
+        _token = null;
+    }
+
+    private async Task<T?> ExecuteWithTokenRefreshAsync<T>(Func<Task<T?>> requestFunc)
+    {
+        if (string.IsNullOrEmpty(_token))
+        {
+            var refreshed = await TryRefreshTokenAsync();
+            if (!refreshed)
+                return default;
+        }
+
+        var result = await requestFunc();
+        
+        if (result == null)
+        {
+            var refreshed = await TryRefreshTokenAsync();
+            if (refreshed)
+            {
+                result = await requestFunc();
+            }
+        }
+        
+        return result;
+    }
+
+    private async Task<bool> TryRefreshTokenAsync()
+    {
+        var username = AuthService.Instance.SavedUsername;
+        var password = AuthService.Instance.SavedPassword;
+        
+        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+        {
+            return false;
+        }
+        
+        var newToken = await LoginAsync(username, password);
+        return !string.IsNullOrEmpty(newToken);
+    }
+
+    private bool CheckTokenValidity(string body)
+    {
+        if (body.Contains("Invalid token", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+        return false;
+    }
 
     public async Task<string?> LoginAsync(string username, string password)
     {
@@ -110,6 +164,11 @@ public class ApiService
 
     public async Task<Question?> GetQuestionAsync(int questionId)
     {
+        return await ExecuteWithTokenRefreshAsync(() => GetQuestionInternalAsync(questionId));
+    }
+
+    private async Task<Question?> GetQuestionInternalAsync(int questionId)
+    {
         if (string.IsNullOrEmpty(_token)) return null;
         
         var url = $"{BaseUrl}question/{questionId}.json";
@@ -123,7 +182,12 @@ public class ApiService
 
         Console.WriteLine($"GetQuestion HTTP {(int)response.StatusCode}: {body}");
 
-        if (!response.IsSuccessStatusCode || body == "Invalid question ID") 
+        if (CheckTokenValidity(body))
+        {
+            return null;
+        }
+
+        if (!response.IsSuccessStatusCode || body == "Invalid question ID")
         {
             return null;
         }
@@ -162,6 +226,11 @@ public class ApiService
 
     public async Task<Question?> GetRandomQuestionAsync(int collectionId)
     {
+        return await ExecuteWithTokenRefreshAsync(() => GetRandomQuestionInternalAsync(collectionId));
+    }
+
+    private async Task<Question?> GetRandomQuestionInternalAsync(int collectionId)
+    {
         if (string.IsNullOrEmpty(_token)) return null;
         
         Console.WriteLine($"Fetching random question for collection {collectionId}");
@@ -177,7 +246,12 @@ public class ApiService
 
         Console.WriteLine($"GetRandomQuestion HTTP {(int)response.StatusCode}: {body}");
 
-        if (!response.IsSuccessStatusCode || body == "Invalid collection ID") 
+        if (CheckTokenValidity(body))
+        {
+            return null;
+        }
+
+        if (!response.IsSuccessStatusCode || body == "Invalid collection ID")
         {
             return null;
         }
@@ -216,8 +290,11 @@ public class ApiService
 
     public async Task<List<QuestionCollection>> GetCollectionsAsync()
     {
-        if (string.IsNullOrEmpty(_token)) return new();
-        
+        return await ExecuteWithTokenRefreshAsync(() => GetCollectionsInternalAsync()) ?? new();
+    }
+
+    private async Task<List<QuestionCollection>?> GetCollectionsInternalAsync()
+    {
         var url = $"{BaseUrl}collections.json";
         var content = new FormUrlEncodedContent(new[]
         {
@@ -228,6 +305,11 @@ public class ApiService
         var body = await response.Content.ReadAsStringAsync();
 
         Console.WriteLine($"GetCollections HTTP {(int)response.StatusCode}: {body}");
+
+        if (CheckTokenValidity(body))
+        {
+            return new();
+        }
 
         if (!response.IsSuccessStatusCode) return new();
         
@@ -257,8 +339,11 @@ public class ApiService
 
     public async Task<byte[]?> GetQuestionImageAsync(int questionId)
     {
-        if (string.IsNullOrEmpty(_token)) return null;
-        
+        return await ExecuteWithTokenRefreshAsync(() => GetQuestionImageInternalAsync(questionId));
+    }
+
+    private async Task<byte[]?> GetQuestionImageInternalAsync(int questionId)
+    {
         try
         {
             var url = $"{BaseUrl}question/image/{questionId}.json";
@@ -268,6 +353,13 @@ public class ApiService
             });
 
             var response = await _httpClient.PostAsync(url, content);
+            var body = await response.Content.ReadAsStringAsync();
+            
+            if (CheckTokenValidity(body))
+            {
+                return null;
+            }
+
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadAsByteArrayAsync();
@@ -301,4 +393,83 @@ public class QuestionCollection
     public string Description { get; set; } = "";
     public string? CreatedAt { get; set; }
     public string? DeletedAt { get; set; }
+}
+
+public class RankingItem
+{
+    [JsonPropertyName("id_user")]
+    public int IdUser { get; set; }
+    [JsonPropertyName("username")]
+    public string Username { get; set; } = "";
+    [JsonPropertyName("score")]
+    public double? Score { get; set; }
+    [JsonPropertyName("position")]
+    public int Position { get; set; }
+    [JsonPropertyName("total_good")]
+    public int TotalGood { get; set; }
+    [JsonPropertyName("total_wrong")]
+    public int TotalWrong { get; set; }
+    [JsonPropertyName("accuracy")]
+    public double Accuracy { get; set; }
+}
+
+public partial class ApiService
+{
+    public async Task<List<RankingItem>> GetTop100Async()
+    {
+        return await ExecuteWithTokenRefreshAsync(() => GetTop100InternalAsync()) ?? new();
+    }
+
+    private async Task<List<RankingItem>?> GetTop100InternalAsync()
+    {
+        var url = $"{BaseUrl}top100";
+        var content = new FormUrlEncodedContent(new[]
+        {
+            new KeyValuePair<string, string>("token", _token)
+        });
+
+        var response = await _httpClient.PostAsync(url, content);
+        var body = await response.Content.ReadAsStringAsync();
+
+        Console.WriteLine($"GetTop100 HTTP {(int)response.StatusCode}: {body}");
+
+        if (!response.IsSuccessStatusCode) return new();
+
+        try
+        {
+            var items = JsonSerializer.Deserialize<List<RankingItem>>(body);
+            return items ?? new();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Parse error: {ex.Message}");
+            return new();
+        }
+    }
+
+    public async Task<bool> SubmitQuizResultsAsync(string answers)
+    {
+        if (string.IsNullOrEmpty(_token)) return false;
+
+        try
+        {
+            var url = $"{BaseUrl}quiz";
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("token", _token),
+                new KeyValuePair<string, string>("answers", answers)
+            });
+
+            var response = await _httpClient.PostAsync(url, content);
+            var body = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine($"SubmitQuiz HTTP {(int)response.StatusCode}: {body}");
+            return response.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"SubmitQuiz error: {ex.Message}");
+            return false;
+        }
+    }
 }

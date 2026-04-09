@@ -21,24 +21,55 @@ namespace ZdaszToApp.Views;
 
     private void OnMainLoaded(object? sender, RoutedEventArgs e)
     {
-        Debug.WriteLine("[AppView] Main DockPanel loaded");
         if (Taskbar != null && _vm != null)
         {
-            Debug.WriteLine("[AppView] Subscribing to Taskbar event");
-            Taskbar.OnUserButtonClicked += OnUserLogout;
+            Taskbar.OnSettingsClicked += OnSettingsOpen;
+        }
+        if (Ranking != null)
+        {
+            Ranking.OnBackToMenu += OnRankingBack;
+        }
+        if (Settings != null)
+        {
+            Settings.OnLogoutRequested += () =>
+            {
+                System.Diagnostics.Debug.WriteLine("[AppView] OnLogoutRequested - START");
+                System.Diagnostics.Debug.WriteLine($"[AppView] Main: {Main?.GetType().Name}, Login: {Login?.GetType().Name}");
+                System.Diagnostics.Debug.WriteLine($"[AppView] Main.IsVisible: {Main?.IsVisible}, Login.IsVisible: {Login?.IsVisible}");
+                
+                if (Main != null && Login != null)
+                {
+                    Services.AuthService.Instance.ClearCredentials();
+                    Main.IsVisible = false;
+                    Settings.IsVisible = false;
+                    Login.IsVisible = true;
+                    Login.StopSpinner();
+                    System.Diagnostics.Debug.WriteLine("[AppView] Wylogowano");
+                }
+            };
         }
     }
-
-    private void OnUserLogout()
+    
+    private void OnSettingsOpen()
     {
-        Debug.WriteLine("[AppView] OnUserLogout - START");
-        if (_vm == null) return;
-        
-        AuthService.Instance.ClearCredentials();
-        _vm.LoginViewModel.Reset();
-        Main.IsVisible = false;
-        Login.IsVisible = true;
-        Debug.WriteLine("[AppView] Wylogowano");
+        if (Main != null && Settings != null)
+        {
+            if (Settings is ILoadable loadable)
+            {
+                loadable.ApplyThemeOnLoad();
+            }
+            Main.IsVisible = false;
+            Settings.IsVisible = true;
+        }
+    }
+    
+    private void OnRankingBack()
+    {
+        if (Main != null && Ranking != null)
+        {
+            Main.IsVisible = true;
+            Ranking.IsVisible = false;
+        }
     }
 
     private void OnDataContextChanged(object? sender, System.EventArgs e)
@@ -56,6 +87,7 @@ namespace ZdaszToApp.Views;
                 vm.LoginViewModel.Username = authService.SavedUsername;
                 vm.LoginViewModel.Password = authService.SavedPassword;
                 
+                vm.LoginViewModel.IsLoading = true;
                 DispatcherTimer.RunOnce(() =>
                 {
                     vm.LoginViewModel.LoginCommand.Execute(null);

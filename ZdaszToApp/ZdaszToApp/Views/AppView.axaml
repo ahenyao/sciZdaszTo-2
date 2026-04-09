@@ -10,6 +10,8 @@
                 <views:Inf03View x:Name="Inf03" IsVisible="False"/>
                 <views:Inf04View x:Name="Inf04" IsVisible="False"/>
                 <views:EndScreenView x:Name="EndScreen" IsVisible="False"/>
+                <views:SettingsView x:Name="Settings" IsVisible="False"/>
+                <views:RankingView x:Name="Ranking" IsVisible="False"/>
                 <DockPanel x:Name="Main" IsVisible="False" Loaded="OnMainLoaded">
                         <views:Taskbar x:Name="Taskbar" DockPanel.Dock="Top"/>
                         <views:MenuView/>

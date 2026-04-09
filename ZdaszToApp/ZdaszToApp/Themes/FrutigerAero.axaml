@@ -1,0 +1,124 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="FrutigerGreen">#8BC34A</Color>
+    <Color x:Key="FrutigerGreenLight">#C5E1A5</Color>
+    <Color x:Key="FrutigerGreenDark">#689F38</Color>
+    <Color x:Key="FrutigerBlue">#03A9F4</Color>
+    <Color x:Key="FrutigerBlueLight">#B3E5FC</Color>
+    <Color x:Key="FrutigerBlueDark">#0288D1</Color>
+    <Color x:Key="FrutigerCyan">#00BCD4</Color>
+    <Color x:Key="FrutigerWhite">#F5F9F5</Color>
+    <Color x:Key="FrutigerLightGray">#E8F5E9</Color>
+    <Color x:Key="FrutigerAqua">#26C6DA</Color>
+
+    <SolidColorBrush x:Key="FrutigerGreenBrush" Color="#8BC34A"/>
+    <SolidColorBrush x:Key="FrutigerGreenLightBrush" Color="#C5E1A5"/>
+    <SolidColorBrush x:Key="FrutigerGreenDarkBrush" Color="#689F38"/>
+    <SolidColorBrush x:Key="FrutigerBlueBrush" Color="#03A9F4"/>
+    <SolidColorBrush x:Key="FrutigerBlueLightBrush" Color="#B3E5FC"/>
+    <SolidColorBrush x:Key="FrutigerBlueDarkBrush" Color="#0288D1"/>
+    <SolidColorBrush x:Key="FrutigerCyanBrush" Color="#00BCD4"/>
+    <SolidColorBrush x:Key="FrutigerWhiteBrush" Color="#F5F9F5"/>
+    <SolidColorBrush x:Key="FrutigerLightGrayBrush" Color="#E8F5E9"/>
+
+    <LinearGradientBrush x:Key="GlossyGreen" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#AED581" Offset="0"/>
+        <GradientStop Color="#8BC34A" Offset="0.4"/>
+        <GradientStop Color="#7CB342" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GlossyBlue" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#4FC3F7" Offset="0"/>
+        <GradientStop Color="#03A9F4" Offset="0.4"/>
+        <GradientStop Color="#0288D1" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GlossyCyan" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#4DD0E1" Offset="0"/>
+        <GradientStop Color="#00BCD4" Offset="0.4"/>
+        <GradientStop Color="#0097A7" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GlossyWhite" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#FFFFFF" Offset="0"/>
+        <GradientStop Color="#F5F9F5" Offset="0.3"/>
+        <GradientStop Color="#E8F5E9" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GlossyCard" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#FFFFFF" Offset="0"/>
+        <GradientStop Color="#E3F2FD" Offset="0.5"/>
+        <GradientStop Color="#B3E5FC" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GlassOverlay" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#20FFFFFF" Offset="0"/>
+        <GradientStop Color="#10FFFFFF" Offset="0.3"/>
+        <GradientStop Color="#05FFFFFF" Offset="0.7"/>
+        <GradientStop Color="#00FFFFFF" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PageBackground" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#E8F5E9" Offset="0"/>
+        <GradientStop Color="#C8E6C9" Offset="0.5"/>
+        <GradientStop Color="#A5D6A7" Offset="1"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="OverlayDark" Color="#60000000"/>
+
+    <LinearGradientBrush x:Key="ButtonGlare" StartPoint="0%,0%" EndPoint="0%,50%">
+        <GradientStop Color="#30FFFFFF" Offset="0"/>
+        <GradientStop Color="#00FFFFFF" Offset="0.5"/>
+    </LinearGradientBrush>
+
+    <!-- Dark Theme Colors -->
+    <Color x:Key="DarkBgPrimary">#1A1A2E</Color>
+    <Color x:Key="DarkBgSecondary">#16213E</Color>
+    <Color x:Key="DarkBgTertiary">#0F3460</Color>
+    <Color x:Key="DarkSurface">#1E1E3F</Color>
+    <Color x:Key="DarkAccentGreen">#4CAF50</Color>
+    <Color x:Key="DarkAccentBlue">#00BCD4</Color>
+    <Color x:Key="DarkTextPrimary">#E8F5E9</Color>
+    <Color x:Key="DarkTextSecondary">#A5D6A7</Color>
+
+    <SolidColorBrush x:Key="DarkBgPrimaryBrush" Color="#1A1A2E"/>
+    <SolidColorBrush x:Key="DarkBgSecondaryBrush" Color="#16213E"/>
+    <SolidColorBrush x:Key="DarkBgTertiaryBrush" Color="#0F3460"/>
+    <SolidColorBrush x:Key="DarkSurfaceBrush" Color="#1E1E3F"/>
+    <SolidColorBrush x:Key="DarkAccentGreenBrush" Color="#4CAF50"/>
+    <SolidColorBrush x:Key="DarkAccentBlueBrush" Color="#00BCD4"/>
+    <SolidColorBrush x:Key="DarkTextPrimaryBrush" Color="#E8F5E9"/>
+    <SolidColorBrush x:Key="DarkTextSecondaryBrush" Color="#A5D6A7"/>
+
+    <LinearGradientBrush x:Key="DarkPageBackground" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#0D1B2A" Offset="0"/>
+        <GradientStop Color="#1B263B" Offset="0.5"/>
+        <GradientStop Color="#1B263B" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DarkGlossyGreen" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#66BB6A" Offset="0"/>
+        <GradientStop Color="#4CAF50" Offset="0.4"/>
+        <GradientStop Color="#388E3C" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DarkGlossyBlue" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#29B6F6" Offset="0"/>
+        <GradientStop Color="#00BCD4" Offset="0.4"/>
+        <GradientStop Color="#0097A7" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DarkGlossyCard" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#2D2D5A" Offset="0"/>
+        <GradientStop Color="#1E1E3F" Offset="0.5"/>
+        <GradientStop Color="#16213E" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DarkGlossyWhite" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#3D3D6B" Offset="0"/>
+        <GradientStop Color="#2D2D5A" Offset="0.3"/>
+        <GradientStop Color="#1E1E3F" Offset="1"/>
+    </LinearGradientBrush>
+
+</ResourceDictionary>

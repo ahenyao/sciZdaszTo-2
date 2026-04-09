@@ -1,0 +1,154 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:vm="using:ZdaszToApp.ViewModels"
+              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="720"
+              x:Class="ZdaszToApp.Views.SettingsView">
+              
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://ZdaszToApp/Assets/Fonts/Fonts.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MainGrid">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                <GradientStop Color="#E8F5E9" Offset="0"/>
+                <GradientStop Color="#C8E6C9" Offset="0.5"/>
+                <GradientStop Color="#A5D6A7" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
+        <Border Background="#20FFFFFF"
+                Margin="15,15,15,15"
+                CornerRadius="20"
+                x:Name="CardBorder">
+            
+            <ScrollViewer>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15">
+                    
+                    <Button HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="0,0,0,20"
+                            CornerRadius="10"
+                            Padding="10"
+                            Click="OnBackClick">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                <GradientStop Color="#FFFFFF" Offset="0"/>
+                                <GradientStop Color="#F5F5F5" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Background="#8BC34A" CornerRadius="8" Width="40" Height="40">
+                                <Image Source="avares://ZdaszToApp/Assets/home.ico"
+                                       Width="24"
+                                       Height="24"
+                                       Stretch="Uniform"/>
+                            </Border>
+                            <TextBlock Text="Powrot" x:Name="BackText"
+                                       Foreground="#2E7D32"
+                                       FontFamily="{StaticResource JerseyFont}"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"
+                                       Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    
+                    <TextBlock Text="Ustawienia" x:Name="SettingsTitle"
+                           TextAlignment="Center"
+                           Foreground="#2E7D32"
+                           FontFamily="{StaticResource JerseyFont}"
+                           FontSize="32"
+                           Margin="0,0,0,30"/>
+                    
+                    <!-- <Border Background="White" CornerRadius="12" Padding="15" Margin="0,0,0,15" BoxShadow="0 2 8 #14000000" x:Name="SoundBorder"> -->
+                    <!--     <StackPanel Spacing="10"> -->
+                    <!--         <TextBlock Text="Dzwiek" x:Name="SoundTitle" -->
+                    <!--                Foreground="#2E7D32" -->
+                    <!--                FontFamily="{StaticResource JerseyFont}" -->
+                    <!--                FontSize="20"/> -->
+                    <!--         <StackPanel Orientation="Horizontal" Spacing="10"> -->
+                    <!--             <TextBlock Text="Glosnosc" x:Name="VolumeLabel" -->
+                    <!--                    Foreground="#558B2F" -->
+                    <!--                    FontFamily="{StaticResource JerseyFont}" -->
+                    <!--                    FontSize="16" -->
+                    <!--                    VerticalAlignment="Center"/> -->
+                    <!--             <Slider Minimum="0" Maximum="100" Value="50" Width="150" VerticalAlignment="Center" x:Name="VolumeSlider"/> -->
+                    <!--         </StackPanel> -->
+                    <!--     </StackPanel> -->
+                    <!-- </Border> -->
+                    
+                    <Border Background="White" CornerRadius="12" Padding="15" Margin="0,0,0,15" BoxShadow="0 2 8 #14000000" x:Name="AppearanceBorder">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="Wyglad" x:Name="AppearanceTitle"
+                                   Foreground="#2E7D32"
+                                   FontFamily="{StaticResource JerseyFont}"
+                                   FontSize="20"/>
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <TextBlock Text="Tryb ciemny" x:Name="DarkModeLabel"
+                                       Foreground="#558B2F"
+                                       FontFamily="{StaticResource JerseyFont}"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"/>
+                                <ToggleSwitch IsChecked="False" x:Name="DarkModeToggle" Click="OnDarkModeToggle" OffContent="" OnContent=""/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- <Border Background="White" CornerRadius="12" Padding="15" Margin="0,0,0,15" BoxShadow="0 2 8 #14000000" x:Name="NotificationsBorder"> -->
+                    <!--     <StackPanel Spacing="10"> -->
+                    <!--         <TextBlock Text="Powiadomienia" x:Name="NotificationsTitle" -->
+                    <!--                Foreground="#2E7D32" -->
+                    <!--                FontFamily="{StaticResource JerseyFont}" -->
+                    <!--                FontSize="20"/> -->
+                    <!--         <StackPanel Orientation="Horizontal" Spacing="10"> -->
+                    <!--             <TextBlock Text="Powiadomienia push" x:Name="PushLabel" -->
+                    <!--                    Foreground="#558B2F" -->
+                    <!--                    FontFamily="{StaticResource JerseyFont}" -->
+                    <!--                    FontSize="16" -->
+                    <!--                    VerticalAlignment="Center"/> -->
+                    <!--             <ToggleSwitch IsChecked="True"/> -->
+                    <!--         </StackPanel> -->
+                    <!--     </StackPanel> -->
+                    <!-- </Border> -->
+                    
+                    <Border Background="White" CornerRadius="12" Padding="15" Margin="0,0,0,15" BoxShadow="0 2 8 #14000000" x:Name="AccountBorder">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="Konto" x:Name="AccountTitle"
+                                   Foreground="#2E7D32"
+                                   FontFamily="{StaticResource JerseyFont}"
+                                   FontSize="20"/>
+                            <Button Content="Wyloguj"
+                                    HorizontalAlignment="Left"
+                                    CornerRadius="8"
+                                    Padding="15,8"
+                                    Click="OnLogoutClick">
+                                <Button.Background>
+                                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                        <GradientStop Color="#FFCDD2" Offset="0"/>
+                                        <GradientStop Color="#EF5350" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Button.Background>
+                                <Button.Foreground>
+                                    <SolidColorBrush Color="#B71C1C"/>
+                                </Button.Foreground>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    
+                    <Border Background="#A5D6A7" CornerRadius="10" Margin="30,30,30,40" Padding="15" x:Name="VersionBorder">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="★" FontSize="22" Foreground="#F57F17" VerticalAlignment="Center" x:Name="VersionStar"/>
+                            <TextBlock Text=" Wersja 1.0 " FontSize="16" Foreground="#558B2F" FontFamily="{StaticResource JerseyFont}" VerticalAlignment="Center" x:Name="VersionText"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

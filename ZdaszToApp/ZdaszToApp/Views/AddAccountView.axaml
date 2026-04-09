@@ -1,11 +1,10 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:ZdaszToApp.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="800"
-             Background="#363636"
-             x:Class="ZdaszToApp.Views.AddAccountView">
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:vm="using:ZdaszToApp.ViewModels"
+              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="800"
+              x:Class="ZdaszToApp.Views.AddAccountView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -21,25 +20,34 @@
     
     <Grid>
         <Grid IsVisible="{Binding IsLoading}">
-            <Border Background="#CC000000"/>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
-                <Border Background="#878787" CornerRadius="50" Width="80" Height="80">
-                    <Ellipse x:Name="Spinner" Width="60" Height="60" Stroke="#D3D3D3" StrokeThickness="6" 
-                             StrokeDashArray="1,4" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Ellipse.RenderTransform>
-                            <RotateTransform Angle="0"/>
-                        </Ellipse.RenderTransform>
-                    </Ellipse>
-                </Border>
-                <TextBlock Text="Logowanie..." 
-                           Foreground="White" 
-                           FontFamily="{StaticResource JerseyFont}"
-                           FontSize="30" 
-                           HorizontalAlignment="Center"/>
-            </StackPanel>
+            <Border Background="#60000000"/>
+            <Border Background="#F5F9F5" CornerRadius="20" Padding="30" VerticalAlignment="Center" HorizontalAlignment="Center" BoxShadow="0 8 25 #33000000">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
+                    <Border Background="#00BCD4" CornerRadius="50" Width="80" Height="80">
+                        <Ellipse x:Name="Spinner" Width="60" Height="60" Stroke="White" StrokeThickness="6" 
+                                 StrokeDashArray="1,4" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Ellipse.RenderTransform>
+                                <RotateTransform Angle="0"/>
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
+                    </Border>
+                    <TextBlock Text="Tworzenie konta..." 
+                               Foreground="#006064" 
+                               FontFamily="{StaticResource JerseyFont}"
+                               FontSize="22" 
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
         </Grid>
 
-        <Grid IsVisible="{Binding !IsLoading}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid IsVisible="{Binding !IsLoading}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MainGrid">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                    <GradientStop Color="#E8F5E9" Offset="0"/>
+                    <GradientStop Color="#C8E6C9" Offset="0.5"/>
+                    <GradientStop Color="#A5D6A7" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
         
         <ScrollViewer>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
@@ -47,107 +55,101 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Margin="10,10,0,0"
-                    FontSize="20"
+                    FontSize="18"
                     Background="Transparent"
-                    Foreground="#D3D3D3"
+                    Foreground="#558B2F"
+                    FontFamily="{StaticResource JerseyFont}"
                     Command="{Binding GoBackCommand}"/>
         
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20">
-                <Border Background="#878787"
-                        CornerRadius="10"
-                        Padding="10">
-                    
-                    <TextBlock Text="ZdaszTo!"
-                               Foreground="#363636"
-                               FontFamily="{StaticResource JerseyFont}"
-                               FontSize="60"/>    
+                <Border Background="White"
+                        CornerRadius="15"
+                        Padding="20,12"
+                        BoxShadow="0 4 12 #1A000000">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border Background="#00BCD4" CornerRadius="8" Width="40" Height="40" Margin="0,0,10,0" VerticalAlignment="Center">
+                            <TextBlock Text="✓" FontSize="24" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="ZdaszTo!"
+                                   Foreground="#006064"
+                                   FontFamily="{StaticResource JerseyFont}"
+                                   FontSize="42"
+                                   VerticalAlignment="Center"/>    
+                    </StackPanel>
                 </Border>
             </StackPanel>
             
-            <Image Source="../Assets/avalonia-logo.ico"
-                    Stretch="Uniform"
-                    HorizontalAlignment="Center"/>
-          
+            <Border Background="#20FFFFFF" CornerRadius="15" Width="280" Margin="0,10,0,0" x:Name="FormBorder">
+                <StackPanel>
+                    <Image Source="../Assets/zdaszto-logo.ico"
+                           Stretch="Uniform"
+                           HorizontalAlignment="Center"
+                           Width="60"
+                           Height="60"
+                           Margin="0,15,0,10"/>
             
-            <Border Background="#5E5E5E" CornerRadius="20" Margin="20,20,20,0">
-            <StackPanel>
-                
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5" Margin="0,20,0,20">
-                    <Border Background="#878787" Padding="10" CornerRadius="5">
-                        
-                        <StackPanel Spacing="10">
-                            <Border Background="#D3D3D3" CornerRadius="10">
-                                
+                    <Border Background="White" CornerRadius="12" Margin="15,5,15,15" BoxShadow="0 2 8 #14000000" x:Name="InputBorder">
+                    <StackPanel Spacing="12" Margin="0,12,0,12">
+                        <StackPanel Spacing="5">
+                            <Border Background="#00BCD4" CornerRadius="8" Padding="10,4" HorizontalAlignment="Left" Margin="10,0,10,0">
                                 <TextBlock Text="E-mail"
-                                           FontSize="30"
+                                           FontSize="14"
                                            FontFamily="{StaticResource JerseyFont}"
-                                           Foreground="#363636"
-                                           Margin="10,0,10,0"/>
+                                           Foreground="White"/>
                             </Border>
                             
                             <TextBox Width="200" 
                                      Text="{Binding Email, Mode=TwoWay}"
-                                     Watermark="Wpisz adres e-mail"/>
+                                     Watermark="Wpisz adres e-mail"
+                                     Margin="10,0,10,0"/>
                         </StackPanel>
-                    </Border>
-                </StackPanel>
             
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5" Margin="0,20,0,20">
-                    <Border Background="#878787" Padding="10" CornerRadius="5">
-                        <StackPanel Spacing="10">
-                            
-                            <Border Background="#D3D3D3" CornerRadius="10">
+                        <StackPanel Spacing="5">
+                            <Border Background="#8BC34A" CornerRadius="8" Padding="10,4" HorizontalAlignment="Left" Margin="10,0,10,0">
                                 <TextBlock Text="Login" 
-                                           FontSize="30"
-                                           Foreground="#363636"
-                                           FontFamily="{StaticResource JerseyFont}"
-                                           Margin="10,0,10,0"/>
+                                           FontSize="14"
+                                           Foreground="White"
+                                           FontFamily="{StaticResource JerseyFont}"/>
                             </Border>
                             <TextBox Width="200" 
                                      Text="{Binding Username, Mode=TwoWay}"
-                                     Watermark="Wpisz login"/>
+                                     Watermark="Wpisz login"
+                                     Margin="10,0,10,0"/>
                         </StackPanel>
-                    </Border>
-                </StackPanel>
-                
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5" Margin="0,20,0,20">
-                    <Border Background="#878787" Padding="10" CornerRadius="5">
-                        <StackPanel Spacing="10">
-                            
-                            <Border Background="#D3D3D3" CornerRadius="10">
+                        
+                        <StackPanel Spacing="5">
+                            <Border Background="#03A9F4" CornerRadius="8" Padding="10,4" HorizontalAlignment="Left" Margin="10,0,10,0">
                                 <TextBlock Text="Hasło" 
-                                       FontSize="30"
-                                       Foreground="#363636"
-                                       FontFamily="{StaticResource JerseyFont}"
-                                       Margin="10,0,10,0"/>
+                                           FontSize="14"
+                                           Foreground="White"
+                                           FontFamily="{StaticResource JerseyFont}"/>
                             </Border>
                             <TextBox Text="{Binding Password, Mode=TwoWay}"
                                      PasswordChar="*" 
-                                     Width="200" />
+                                     Width="200"
+                                     Margin="10,0,10,0"/>
                         </StackPanel>
-                    </Border>
+                    </StackPanel>
+                </Border>
                 </StackPanel>
-                
-            </StackPanel>
             </Border>
             
-            <Border Background="#878787"
-                    CornerRadius="10"
-                    Margin="20,20,20,40">
-                
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5">
-                        <Button Name="LogButton"
-                         Content="Załóż konto" 
-                         FontSize="50"
-                         FontWeight="Bold"
-                         HorizontalAlignment="Center"
-                         Margin="0,20,0,20"
-                         CornerRadius="10"
-                         Foreground="#D3D3D3"
-                         Background="Red"
-                         FontFamily="{StaticResource JerseyFont}"
-                         Command="{Binding SignupCommand}"/>
-                </StackPanel>
+            <Border Background="#00BCD4"
+                    CornerRadius="15"
+                    Margin="40,20,40,40"
+                    Padding="5">
+                <Border Background="#0097A7" CornerRadius="12">
+                    <Button Content="Załóż konto" 
+                        FontSize="22"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Center"
+                        Margin="0,10,0,10"
+                        CornerRadius="10"
+                        Foreground="White"
+                        Background="Transparent"
+                        FontFamily="{StaticResource JerseyFont}"
+                        Command="{Binding SignupCommand}"/>
+                </Border>
             </Border>
         </StackPanel>
         </ScrollViewer>

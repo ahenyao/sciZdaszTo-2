@@ -1,21 +1,81 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.VisualTree;
 using ZdaszToApp.ViewModels;
+using ZdaszToApp.Services;
 
 namespace ZdaszToApp.Views;
 
-public partial class Inf02View : UserControl
+public partial class Inf02View : UserControl, ILoadable
 {
     public Inf02View()
     {
         InitializeComponent();
+        SetupTheme();
         DataContext = new Inf02();
     }
 
     public Inf02View(int collectionId)
     {
         InitializeComponent();
+        SetupTheme();
         DataContext = new Inf02(collectionId);
+    }
+
+    private void SetupTheme()
+    {
+        ThemeService.Instance.PropertyChanged += OnThemeChanged;
+        ApplyTheme();
+    }
+
+    private void OnThemeChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(ThemeService.IsDarkMode))
+        {
+            ApplyTheme();
+        }
+    }
+
+    private void ApplyTheme()
+    {
+        var isDark = ThemeService.Instance.IsDarkMode;
+        var mainGrid = this.FindControl<Grid>("MainGrid");
+        var outerBorder = this.FindControl<Border>("OuterBorder");
+        var innerBorder = this.FindControl<Border>("InnerBorder");
+        
+        if (mainGrid != null)
+        {
+            mainGrid.Classes.Clear();
+            mainGrid.Classes.Add(isDark ? "dark" : "light");
+            
+            var bg = Application.Current?.FindResource(isDark ? "DarkPageBackground" : "PageBackground") as IBrush;
+            if (bg != null)
+                mainGrid.Background = bg;
+        }
+
+        if (outerBorder != null)
+        {
+            var overlay = Application.Current?.FindResource(isDark ? "OverlayDark" : "GlassOverlay") as IBrush;
+            if (overlay != null)
+                outerBorder.Background = overlay;
+        }
+
+        if (innerBorder != null)
+        {
+            var card = Application.Current?.FindResource(isDark ? "DarkGlossyCard" : "GlossyWhite") as IBrush;
+            if (card != null)
+                innerBorder.Background = card;
+            else
+                innerBorder.Background = isDark 
+                    ? new SolidColorBrush(Avalonia.Media.Color.Parse("#1E1E3F"))
+                    : new SolidColorBrush(Colors.White);
+        }
+    }
+
+    public void ApplyThemeOnLoad()
+    {
+        ApplyTheme();
     }
 
     private Control? FindInRoot(Control start, string name)
@@ -54,7 +114,7 @@ public partial class Inf02View : UserControl
         return null;
     }
 
-    private void OnBackClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void OnHomeClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         var testView = FindInRoot(this, "Test");
         var mainDock = FindInRoot(this, "Main") as DockPanel;

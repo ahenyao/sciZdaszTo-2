@@ -38,6 +38,7 @@ public partial class LoginViewModel : ViewModelBase
         Error_login = null;
         Error_password = null;
         IsLoggedIn = false;
+        IsLoading = false;
         
         if (_authService.HasSavedCredentials())
         {
@@ -59,12 +60,14 @@ public partial class LoginViewModel : ViewModelBase
         if (string.IsNullOrWhiteSpace(Username))
         {
             Error_login = "Wpisz login";
+            IsLoading = false;
             return;
         }
 
         if (string.IsNullOrWhiteSpace(Password))
         {
             Error_password = "Wpisz hasło";
+            IsLoading = false;
             return;
         }
 
@@ -95,7 +98,7 @@ public partial class LoginViewModel : ViewModelBase
         }
 
         _authService.SaveCredentials(Username!, Password!);
-        Message = "Logowanie udane!";
+        Message = ""; //"Logowanie udane!";
         IsLoggedIn = true;
         IsLoading = false;
         Console.WriteLine("[LoginViewModel] Login success, calling OnLoginSuccess");

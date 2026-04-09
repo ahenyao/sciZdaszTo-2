@@ -1,0 +1,317 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ZdaszToThemeDesigner.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="650"
+        x:Class="ZdaszToThemeDesigner.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="ZdaszTo Theme Designer"
+        Width="900" Height="650"
+        Background="#1A1A2E">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Panel - Color Editor -->
+        <Border Grid.Column="0" Background="#16213E" Padding="15">
+            <StackPanel>
+                <TextBlock Text="Theme Designer" FontSize="22" FontWeight="Bold" 
+                           Foreground="#4CAF50" Margin="0,0,0,20"/>
+
+                <!-- Theme Type Selector -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <RadioButton Content="Light" GroupName="ThemeType" 
+                                 IsChecked="{Binding !IsDarkMode}"
+                                 Command="{Binding SetLightThemeCommand}"
+                                 Foreground="#E8F5E9" Margin="0,0,15,0"/>
+                    <RadioButton Content="Dark" GroupName="ThemeType" 
+                                 IsChecked="{Binding IsDarkMode}"
+                                 Command="{Binding SetDarkThemeCommand}"
+                                 Foreground="#E8F5E9"/>
+                </StackPanel>
+
+                <TextBlock Text="{Binding SelectedThemeType, StringFormat='Typ: {0}'}" 
+                           FontSize="14" Foreground="#81C784" Margin="0,0,0,10"/>
+
+                <!-- Color List -->
+                <TextBlock Text="── Primary Colors ──" Foreground="#00BCD4" FontSize="12" Margin="0,10,0,10"/>
+
+                <StackPanel>
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Width="20" Height="20" CornerRadius="3" 
+                                Background="{Binding PrimaryGreen}" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="1" Text="Primary Green" Foreground="#E8F5E9" 
+                                   VerticalAlignment="Center" Margin="10,0"/>
+                        <TextBox Grid.Column="2" Text="{Binding PrimaryGreen}" 
+                                 Watermark="#HEX" FontSize="11"/>
+                    </Grid>
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Width="20" Height="20" CornerRadius="3" 
+                                Background="{Binding PrimaryBlue}" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="1" Text="Primary Blue" Foreground="#E8F5E9" 
+                                   VerticalAlignment="Center" Margin="10,0"/>
+                        <TextBox Grid.Column="2" Text="{Binding PrimaryBlue}" 
+                                 Watermark="#HEX" FontSize="11"/>
+                    </Grid>
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Width="20" Height="20" CornerRadius="3" 
+                                Background="{Binding PrimaryCyan}" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="1" Text="Primary Cyan" Foreground="#E8F5E9" 
+                                   VerticalAlignment="Center" Margin="10,0"/>
+                        <TextBox Grid.Column="2" Text="{Binding PrimaryCyan}" 
+                                 Watermark="#HEX" FontSize="11"/>
+                    </Grid>
+                </StackPanel>
+
+                <TextBlock Text="── Backgrounds ──" Foreground="#00BCD4" FontSize="12" Margin="0,15,0,10"/>
+
+                <StackPanel>
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Width="20" Height="20" CornerRadius="3" 
+                                Background="{Binding BgTop}" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="1" Text="Top" Foreground="#E8F5E9" 
+                                   VerticalAlignment="Center" Margin="10,0"/>
+                        <TextBox Grid.Column="2" Text="{Binding BgTop}" FontSize="11"/>
+                    </Grid>
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Width="20" Height="20" CornerRadius="3" 
+                                Background="{Binding BgMiddle}" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="1" Text="Middle" Foreground="#E8F5E9" 
+                                   VerticalAlignment="Center" Margin="10,0"/>
+                        <TextBox Grid.Column="2" Text="{Binding BgMiddle}" FontSize="11"/>
+                    </Grid>
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Width="20" Height="20" CornerRadius="3" 
+                                Background="{Binding BgBottom}" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="1" Text="Bottom" Foreground="#E8F5E9" 
+                                   VerticalAlignment="Center" Margin="10,0"/>
+                        <TextBox Grid.Column="2" Text="{Binding BgBottom}" FontSize="11"/>
+                    </Grid>
+                </StackPanel>
+
+                <TextBlock Text="── Cards ──" Foreground="#00BCD4" FontSize="12" Margin="0,15,0,10"/>
+
+                <Grid Margin="0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Width="20" Height="20" CornerRadius="3" 
+                            Background="{Binding CardBackground}" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1" Text="Card Background" Foreground="#E8F5E9" 
+                               VerticalAlignment="Center" Margin="10,0"/>
+                    <TextBox Grid.Column="2" Text="{Binding CardBackground}" FontSize="11"/>
+                </Grid>
+
+                <TextBlock Text="── Text ──" Foreground="#00BCD4" FontSize="12" Margin="0,15,0,10"/>
+
+                <Grid Margin="0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Width="20" Height="20" CornerRadius="3" 
+                            Background="{Binding TextPrimary}" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1" Text="Primary Text" Foreground="#E8F5E9" 
+                               VerticalAlignment="Center" Margin="10,0"/>
+                    <TextBox Grid.Column="2" Text="{Binding TextPrimary}" FontSize="11"/>
+                </Grid>
+                <Grid Margin="0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Width="20" Height="20" CornerRadius="3" 
+                            Background="{Binding TextSecondary}" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1" Text="Secondary Text" Foreground="#E8F5E9" 
+                               VerticalAlignment="Center" Margin="10,0"/>
+                    <TextBox Grid.Column="2" Text="{Binding TextSecondary}" FontSize="11"/>
+                </Grid>
+
+                <!-- Export Buttons -->
+                <StackPanel Orientation="Horizontal" Margin="0,25,0,0">
+                    <Button Content="Export AXAML" Command="{Binding ExportAxamlCommand}"
+                            Background="#4CAF50" Foreground="White" 
+                            Padding="15,8" CornerRadius="5" Margin="0,0,10,0"/>
+                    <Button Content="Export C#" Command="{Binding ExportCSharpCommand}"
+                            Background="#00BCD4" Foreground="White" 
+                            Padding="15,8" CornerRadius="5"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Right Panel - Live Preview -->
+        <Border Grid.Column="1" Background="#0D1B2A" Padding="20">
+            <StackPanel>
+                <TextBlock Text="PODGLĄD APLIKACJI" FontSize="16" FontWeight="Bold" 
+                           Foreground="#4CAF50" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                <!-- App Preview -->
+                <Border Width="340" Height="600" CornerRadius="10" ClipToBounds="True"
+                        Background="{Binding BgTop}" HorizontalAlignment="Center">
+                    <Grid>
+                        <!-- Background gradient simulation -->
+                        <Border>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                    <GradientStop Color="{Binding BgTop}" Offset="0"/>
+                                    <GradientStop Color="{Binding BgMiddle}" Offset="0.5"/>
+                                    <GradientStop Color="{Binding BgBottom}" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+
+                        <StackPanel Margin="10">
+                            <!-- Header -->
+                            <Border Background="{Binding PrimaryGreen}" CornerRadius="8" Padding="12" Margin="0,10,0,15">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="ZdaszTo!" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Grid.Column="1" Text="☰" FontSize="20" Foreground="White" Margin="0,0,15,0"/>
+                                    <TextBlock Grid.Column="2" Text="👤" FontSize="20" Foreground="White"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Menu Buttons -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- INF.02 -->
+                                <Border Grid.Column="0" Grid.Row="0" Background="{Binding CardBackground}" 
+                                        CornerRadius="10" Margin="5" Padding="20">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                            <GradientStop Color="{Binding CardBackground}" Offset="0"/>
+                                            <GradientStop Color="#E3F2FD" Offset="0.5"/>
+                                            <GradientStop Color="#B3E5FC" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="📚" FontSize="30" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="INF.02" FontSize="14" FontWeight="Bold" 
+                                                   Foreground="{Binding TextPrimary}" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- INF.03 -->
+                                <Border Grid.Column="1" Grid.Row="0" Background="{Binding CardBackground}" 
+                                        CornerRadius="10" Margin="5" Padding="20">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                            <GradientStop Color="{Binding CardBackground}" Offset="0"/>
+                                            <GradientStop Color="#E3F2FD" Offset="0.5"/>
+                                            <GradientStop Color="#B3E5FC" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="📚" FontSize="30" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="INF.03" FontSize="14" FontWeight="Bold" 
+                                                   Foreground="{Binding TextPrimary}" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- INF.04 -->
+                                <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" 
+                                        Background="{Binding CardBackground}" 
+                                        CornerRadius="10" Margin="5" Padding="20">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                            <GradientStop Color="{Binding CardBackground}" Offset="0"/>
+                                            <GradientStop Color="#E3F2FD" Offset="0.5"/>
+                                            <GradientStop Color="#B3E5FC" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="📚" FontSize="30" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="INF.04" FontSize="14" FontWeight="Bold" 
+                                                   Foreground="{Binding TextPrimary}" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Zakupy -->
+                                <Border Grid.Column="0" Grid.Row="2" Background="{Binding PrimaryGreen}" 
+                                        CornerRadius="10" Margin="5" Padding="15">
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="🛒" FontSize="24" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Zakupy" FontSize="12" Foreground="White" 
+                                                   HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Ranking -->
+                                <Border Grid.Column="1" Grid.Row="2" Background="{Binding PrimaryBlue}" 
+                                        CornerRadius="10" Margin="5" Padding="15">
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="🏆" FontSize="24" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Ranking" FontSize="12" Foreground="White" 
+                                                   HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <!-- Footer -->
+                            <Border Background="{Binding CardBackground}" CornerRadius="8" 
+                                    Padding="10" Margin="0,15,0,0" Opacity="0.9">
+                                <TextBlock Text="ZdaszToApp v1.0" FontSize="11" 
+                                           Foreground="{Binding TextSecondary}" HorizontalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

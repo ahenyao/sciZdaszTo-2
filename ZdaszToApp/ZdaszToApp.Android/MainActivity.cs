@@ -6,7 +6,7 @@ using Avalonia.Android;
 namespace ZdaszToApp.Android;
 
 [Activity(
-    Label = "ZdaszToApp.Android",
+    Label = "ZdaszToApp",
     Theme = "@style/MyTheme.NoActionBar",
     Icon = "@drawable/icon",
     MainLauncher = true,

@@ -305,6 +305,8 @@ public partial class Inf04 : ViewModelBase
             QuizCounter.AddIncorrect();
         }
 
+        QuizCounter.AddAnswer(_currentQuestion.Id, IsCorrect);
+
         if (QuestionType == 1)
         {
             foreach (var opt in Options)
@@ -333,8 +335,11 @@ public partial class Inf04 : ViewModelBase
         await LoadNextQuestionAsync();
     }
 
-    private void ShowEndScreen()
+    private async void ShowEndScreen()
     {
+        var answersString = QuizCounter.GetAnswersString();
+        _ = _apiService.SubmitQuizResultsAsync(answersString);
+        
         if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var window = desktop.MainWindow;
