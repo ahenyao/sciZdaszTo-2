@@ -12,6 +12,7 @@ load_dotenv()
 HOST =    getenv("HOST")
 PORT =    int(getenv("PORT"))
 DB_HOST = getenv("DB_HOST")
+DB_PORT = int(getenv("DB_PORT"))
 DB_USER = getenv("DB_USER")
 DB_PASS = getenv("DB_PASS")
 DB_NAME = getenv("DB_NAME")
@@ -30,6 +31,7 @@ def get_db():
     if "db" not in g:
         g.db = pymysql.connect(
             host=DB_HOST,
+            port=DB_PORT,
             user=DB_USER,
             password=DB_PASS,
             database=DB_NAME,
@@ -120,6 +122,22 @@ def collections(cursor, db):
 @auth_required
 def collections_questions(cursor, db, collection_id):
     return zdaszto.questions.collections_questions(cursor, collection_id)
+
+
+
+@app.route("/quiz", methods=["POST"])
+@dbconn
+@auth_required
+def end_attempt(cursor, db):
+    return zdaszto.score.end_attempt(request.form.to_dict(), cursor, db)
+
+
+
+@app.route("/top100", methods=["POST"])
+@dbconn
+@auth_required
+def top100(cursor, db):
+    return zdaszto.score.leaderboard.top100(cursor, db)
 
 
 
