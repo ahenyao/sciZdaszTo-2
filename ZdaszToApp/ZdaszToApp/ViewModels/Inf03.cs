@@ -10,6 +10,7 @@ using ZdaszToApp.Services;
 using Avalonia.Media.Imaging;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
 using ZdaszToApp;
 
 namespace ZdaszToApp.ViewModels;
@@ -131,6 +132,8 @@ public partial class Inf03 : ViewModelBase
         
         AnswerSubmitted = true;
         QuizCounter.AddIncorrect();
+        QuizCounter.AddAnswer(_currentQuestion.Id, false);
+        _ = _apiService.SubmitQuizResultsAsync($"{_currentQuestion.Id}:0");
 
         if (QuestionType == 1)
         {
@@ -152,7 +155,7 @@ public partial class Inf03 : ViewModelBase
 
         if (Lives <= 0)
         {
-            ShowEndScreen();
+            Dispatcher.UIThread.Post(() => ShowEndScreen());
             return;
         }
 
@@ -306,6 +309,7 @@ public partial class Inf03 : ViewModelBase
         }
 
         QuizCounter.AddAnswer(_currentQuestion.Id, IsCorrect);
+        _ = _apiService.SubmitQuizResultsAsync($"{_currentQuestion.Id}:{(IsCorrect ? 1 : 0)}");
 
         if (QuestionType == 1)
         {
@@ -337,9 +341,6 @@ public partial class Inf03 : ViewModelBase
 
     private async void ShowEndScreen()
     {
-        var answersString = QuizCounter.GetAnswersString();
-        _ = _apiService.SubmitQuizResultsAsync(answersString);
-        
         if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var window = desktop.MainWindow;
