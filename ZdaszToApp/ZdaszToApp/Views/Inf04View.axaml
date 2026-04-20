@@ -85,7 +85,7 @@
                             <TextBlock Text="{Binding QuestionText}" FontSize="18" Foreground="#006064" TextWrapping="Wrap" FontFamily="{StaticResource JerseyFont}" MaxWidth="280"/>
                         </Border>
 
-                        <StackPanel IsVisible="{Binding ShowTextInput}">
+                        <StackPanel IsVisible="False">
                             <TextBox Text="{Binding UserAnswer}" Watermark="Wpisz odpowiedź..." Height="50" FontSize="15" Margin="0,0,0,10"/>
                         </StackPanel>
 
@@ -140,7 +140,7 @@
                             </Button>
                         </StackPanel>
 
-                        <StackPanel IsVisible="{Binding ShowTrueFalse}" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="15">
+                        <StackPanel IsVisible="False" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="15">
                             <Button Width="130" Height="55" CornerRadius="12" FontSize="16" Command="{Binding SelectTrueFalseCommand}" CommandParameter="True">
                                 <Button.Background>
                                     <MultiBinding Converter="{StaticResource AnswerColorConverter}">

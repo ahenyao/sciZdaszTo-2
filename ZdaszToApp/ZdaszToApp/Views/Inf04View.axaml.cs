@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.VisualTree;
+using ZdaszToApp;
 using ZdaszToApp.ViewModels;
 using ZdaszToApp.Services;
 
@@ -117,12 +118,21 @@ public partial class Inf04View : UserControl, ILoadable
     private void OnHomeClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         var testView = FindInRoot(this, "Inf04");
-        var mainDock = FindInRoot(this, "Main") as DockPanel;
+        var endScreen = FindInRoot(this, "EndScreen");
         
-        if (testView != null && mainDock != null)
+        if (testView != null && endScreen != null)
         {
+            if (testView.DataContext is Inf04 vm)
+            {
+                vm.Lives = 0;
+            }
+            if (endScreen.DataContext is EndScreenViewModel endVm)
+            {
+                endVm.RefreshData();
+                endVm.SetLastTestType("Inf04");
+            }
             testView.IsVisible = false;
-            mainDock.IsVisible = true;
+            endScreen.IsVisible = true;
         }
     }
 }
