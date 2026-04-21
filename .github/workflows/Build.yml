@@ -188,15 +188,14 @@ jobs:
       - name: Build
         run: dotnet publish -c Release -f net9.0-android ZdaszToApp/ZdaszToApp.Android/ZdaszToApp.Android.csproj /p:AndroidPackageFormat=apk /p:RunAOTCompilation=false /p:PublishTrimmed=false
 
+      - name: Remove pre-signed apk file
+        run: rm ZdaszToApp/ZdaszToApp.Android/bin/Release/net9.0-android/*-Signed.apk
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: android-noarch-release
           path: ZdaszToApp/ZdaszToApp.Android/bin/Release/net9.0-android
-
-      - name: Remove pre-signed apk file
-        run: rm ZdaszToApp/ZdaszToApp.Android/bin/Release/net9.0-android/*-Signed.apk
-
           
       - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
