@@ -27,7 +27,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: win-x64-release.zip
+          name: win-x64-release
           path: ZdaszToApp\ZdaszToApp.Desktop\bin\Release\net9.0
 
 
@@ -54,7 +54,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: win-arm64-release.zip
+          name: win-arm64-release
           path: ZdaszToApp\ZdaszToApp.Desktop\bin\Release\net9.0
 
 
@@ -81,7 +81,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: linux-x64-release.zip
+          name: linux-x64-release
           path: ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0
 
 
@@ -108,7 +108,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: linux-arm64-release.zip
+          name: linux-arm64-release
           path: ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0
 
 
@@ -135,7 +135,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: macos-x64-release.zip
+          name: macos-x64-release
           path: ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0
 
 
@@ -162,7 +162,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: macos-arm64-release.zip
+          name: macos-arm64-release
           path: ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0
 
 
@@ -192,12 +192,6 @@ jobs:
         run: |
           mkdir sign_tmp
           cp ZdaszToApp/ZdaszToApp.Android/bin/Release/net9.0-android/com.sciplusplus2026.zdasztoapp.apk sign_tmp
-
-      #- name: Upload
-      #  uses: actions/upload-artifact@v4
-      #  with:
-      #    name: android-noarch-release
-      #    path: ZdaszToApp/ZdaszToApp.Android/bin/Release/net9.0-android
           
       - uses: ilharp/sign-android-release@v2
         name: Sign app APK
@@ -209,8 +203,34 @@ jobs:
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
           buildToolsVersion: 36.0.0
-
+          
       - uses: actions/upload-artifact@v4
         with:
-          name: android-noarch-release.apk
-          path: sign_tmp/com.sciplusplus2026.zdasztoapp-signed.apk
+          name: android-noarch-release
+          path: ${{steps.sign_app.outputs.signedFile}}
+
+
+  release:
+    name: Create Release with all builds
+    runs-on: ubuntu-latest
+    needs:
+      - build-win-x64-release
+      - build-win-arm64-release
+      - build-linux-x64-release
+      - build-linux-arm64-release
+      - build-macos-x64-release
+      - build-macos-arm64-release
+      - build-android-noarch-release
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Show files (debug)
+        run: ls -R
+
+      - name: Create release with all files
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            **/*
