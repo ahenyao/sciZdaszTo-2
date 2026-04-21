@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [ "*" ]
 
+permissions:
+  contents: write
+
 jobs:
   build-win-x64-release:
     name: Windows x64 Release
