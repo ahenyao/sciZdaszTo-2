@@ -188,21 +188,23 @@ jobs:
       - name: Build
         run: dotnet publish -c Release -f net9.0-android ZdaszToApp/ZdaszToApp.Android/ZdaszToApp.Android.csproj /p:AndroidPackageFormat=apk /p:RunAOTCompilation=false /p:PublishTrimmed=false
 
-      - name: Remove pre-signed apk file
-        run: rm ZdaszToApp/ZdaszToApp.Android/bin/Release/net9.0-android/*-Signed.apk
+      - name: Copy non-signed apk file
+        run: |
+          mkdir sign_tmp
+          cp ZdaszToApp/ZdaszToApp.Android/bin/Release/net9.0-android/com.sciplusplus2026.zdasztoapp.apk sign_tmp
 
-      - name: Upload
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-noarch-release
-          path: ZdaszToApp/ZdaszToApp.Android/bin/Release/net9.0-android
+      #- name: Upload
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: android-noarch-release
+      #    path: ZdaszToApp/ZdaszToApp.Android/bin/Release/net9.0-android
           
       - uses: ilharp/sign-android-release@v2
         name: Sign app APK
     # ID used to access action output
         id: sign_app
         with:
-          releaseDir: ZdaszToApp/ZdaszToApp.Android/bin/Release/net9.0-android
+          releaseDir: sign_tmp
           signingKey: ${{ secrets.ANDROID_SIGNING_KEY }}
           keyAlias: ${{ secrets.ANDROID_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
@@ -212,5 +214,5 @@ jobs:
       # Example use of `signedReleaseFile` output -- not needed
       - uses: actions/upload-artifact@v4
         with:
-          name: Signed app bundle
-          path: ${{steps.sign_app.outputs.signedFiles}}
+          name: android-noarch-release
+          path: ${{steps.sign_app.outputs.signedFile}}
