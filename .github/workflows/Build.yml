@@ -232,12 +232,6 @@ jobs:
       - name: Show files (debug)
         run: ls -R
 
-      - name: Create release with all files
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: auto-${{ github.run_number }}
-          name: Build ${{ github.run_number }}
-          
       - name: Collect files
         run: |
           mkdir release
@@ -247,4 +241,6 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: auto-${{ github.run_number }}
+          name: Build ${{ github.run_number }}
           files: release/*
