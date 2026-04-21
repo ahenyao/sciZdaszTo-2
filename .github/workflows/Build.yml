@@ -29,7 +29,7 @@ jobs:
       - name: Package
         run: |
           mkdir release
-          powershell Compress-Archive -Path ZdaszToApp\ZdaszToApp.Desktop\bin\Release\net9.0\win-x64\publish -DestinationPath release\win-x64-release.zip
+          powershell Compress-Archive -Path ZdaszToApp\ZdaszToApp.Desktop\bin\Release\net9.0\win-x64\publish\* -DestinationPath release\win-x64-release.zip
 
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -59,7 +59,7 @@ jobs:
       - name: Package
         run: |
           mkdir release
-          powershell Compress-Archive -Path ZdaszToApp\ZdaszToApp.Desktop\bin\Release\net9.0\win-arm64\publish -DestinationPath release\win-arm64-release.zip
+          powershell Compress-Archive -Path ZdaszToApp\ZdaszToApp.Desktop\bin\Release\net9.0\win-arm64\publish\* -DestinationPath release\win-arm64-release.zip
 
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -89,7 +89,8 @@ jobs:
       - name: Package
         run: |
           mkdir release
-          zip -r release/linux-x64-release.zip ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0/linux-x64/publish
+          cd ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0/linux-x64/publish
+          zip -r ../../../../../../../release/linux-x64-release.zip .
 
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -119,7 +120,8 @@ jobs:
       - name: Package
         run: |
           mkdir release
-          zip -r release/linux-arm64-release.zip ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0/linux-arm64/publish
+          cd ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0/linux-arm64/publish
+          zip -r ../../../../../../../release/linux-arm64-release.zip .
 
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -149,7 +151,8 @@ jobs:
       - name: Package
         run: |
           mkdir release
-          zip -r release/macos-x64-release.zip ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0/osx-x64/publish
+          cd ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0/osx-x64/publish
+          zip -r ../../../../../../../release/macos-x64-release.zip .
 
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -179,7 +182,8 @@ jobs:
       - name: Package
         run: |
           mkdir release
-          zip -r release/macos-arm64-release.zip ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0/osx-arm64/publish
+          cd ZdaszToApp/ZdaszToApp.Desktop/bin/Release/net9.0/osx-arm64/publish
+          zip -r ../../../../../../../release/macos-arm64-release.zip .
 
       - name: Upload
         uses: actions/upload-artifact@v4
