@@ -237,5 +237,14 @@ jobs:
         with:
           tag_name: auto-${{ github.run_number }}
           name: Build ${{ github.run_number }}
-          files: |
-            **/*
+          
+      - name: Collect files
+        run: |
+          mkdir release
+          find . -name "*-release.zip" -exec cp {} release/ \;
+          find . -name "*-release.apk" -exec cp {} release/ \;
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/*
