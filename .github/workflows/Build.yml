@@ -24,7 +24,7 @@ jobs:
         run: dotnet restore ZdaszToApp\ZdaszToApp.Desktop\ZdaszToApp.Desktop.csproj
 
       - name: Build
-        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true ZdaszToApp\ZdaszToApp.Desktop\ZdaszToApp.Desktop.csproj
+        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true -p:DebugType=None -p:DebugSymbols=false ZdaszToApp\ZdaszToApp.Desktop\ZdaszToApp.Desktop.csproj
 
       - name: Package
         run: |
@@ -54,7 +54,7 @@ jobs:
         run: dotnet restore ZdaszToApp\ZdaszToApp.Desktop\ZdaszToApp.Desktop.csproj
 
       - name: Build
-        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true ZdaszToApp\ZdaszToApp.Desktop\ZdaszToApp.Desktop.csproj
+        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true -p:DebugType=None -p:DebugSymbols=false ZdaszToApp\ZdaszToApp.Desktop\ZdaszToApp.Desktop.csproj
 
       - name: Package
         run: |
@@ -84,7 +84,7 @@ jobs:
         run: dotnet restore ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
 
       - name: Build
-        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true -p:DebugType=None -p:DebugSymbols=false ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
 
       - name: Package
         run: |
@@ -115,7 +115,7 @@ jobs:
         run: dotnet restore ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
 
       - name: Build
-        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true -p:DebugType=None -p:DebugSymbols=false ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
 
       - name: Package
         run: |
@@ -146,7 +146,7 @@ jobs:
         run: dotnet restore ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
 
       - name: Build
-        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true -p:DebugType=None -p:DebugSymbols=false ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
 
       - name: Package
         run: |
@@ -177,7 +177,7 @@ jobs:
         run: dotnet restore ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
 
       - name: Build
-        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
+        run: dotnet publish -c Release -f net9.0 -p:SelfContained=true -p:PublishSingleFile=true -p:DebugType=None -p:DebugSymbols=false ZdaszToApp/ZdaszToApp.Desktop/ZdaszToApp.Desktop.csproj
 
       - name: Package
         run: |
